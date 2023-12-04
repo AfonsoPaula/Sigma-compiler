@@ -86,6 +86,69 @@
 - Processo: análise do fluxo de controlo, análise do fluxo de dados, transformações, ...
 - Otimizações: alto-nível (programador), local, _peephole_, global.
 
-## Analisador Lexical
+<hr>
 
-- O estado inicial
+## ➡️ Analisador Lexical
+
+- O estado inicial inclui transações vazias para os estados iniciais das expressões regulares.
+- Na busca da maior expressão possível, como irão existir diversos estados terminais, deve-se avançar até um erro ou fim dos dados e procurar o último estado terminal aceite.
+- A análise recomeça no estado inicial global, no carácter seguinte ao que conduziu ao estado final aceite.
+- Na minimização, a partição inicial coloca em grupos diferentes os estados terminais de cada uma das expressões regulares.
+
+Um analisador lexical produz os elementos lexicais de um programa com base numa linguagem regular:
+- **modularidade** : permite separar a sintaxe em duas fases distintas: análise lexical e sintática.
+- **legibilidade** : expressões regulares são, em geral, mais legíveis.
+- **simplicidade** : permite simplificar significativamente o analisador sintático.
+- **eficiência** : separação lexical e sintática permite que ambos os analisadores sejam mais eficientes (usa autómato sem pilha auxiliar).
+- **portabilidade**  : variações entre ambientes, dispositivos ou sistemas operativos podem ficar contidos no analisador lexical.
+
+### Tarefas do Analisador Lexical
+
+Ficheiro, com extenção ```.l```, dividido em três zonas separadas por uma linha contendo apenas ```%%```:
+- **Declarações** : de macros, de agrupamentos e declarações da linguagem de apoio entre ```%{``` e ```%}```.
+- **Regras** : expressão regular separada da ação semântica por um ou mais espaços em branco. A ação semântica é uma instrução da linguagem ou bloco delimitado por chavetas.
+- **Código** : realização de funções, algumas das quais declaradas acima.
+
+Gerar um analisador lexical, designado por ```lex.yy.c```, com o comando ```lex xxxx.l``` e compilado com o auxílio da biblioteca ```-ll``` (o **flex** utiliza a biblioteca ```-lfl```).
+
+### Expressões Regulares
+
+<p align="center">
+  <img src="https://github.com/AfonsoPaula/Sigma-compiler/assets/67978137/1e07e89f-46d5-479b-8824-873951d9a7b0" width="50%">
+</p>
+
+### Tratamento de expressões regulares
+
+Identificação da ação semântica a executar, quando mais de uma expressão regular é válida:
+- A sequência de entrada mais comprida é a escolhida
+- Em caso de igualdade de comprimento é usada a que se encontra primeiro no ficheiro de especificação.
+Notar que não se trata da expressão regular maior, mas da sequ~encia de entrada maior:
+
+```flex
+%%
+dependente  printf("Encontrei 'dependente'\n");
+[a-z]*      ECHO;
+```
+
+### Funções:
+
+- **int yylex(void)** : rotina, gerada pelo **lex**, que realiza a análise lexical. Devolve o número do elemento lexical encontrado ou 0 (zero) quanto atinge o fim do processamento.
+- **int yywrap(void)** : rotina, escrita pelo programador, que quando um ficheiro chega ao fim permite continuar o processamento noutro ficheiro. Caso não haja mais ficheiros a processar **yywrap** devolve 1 (um), caso contrário atualiza a variável **yyin** para o ficheiro seguinte e devolve 0 (zero).
+- **void yymore(void)** : rotina, invocada numa ação semântica, que permite salvaguardar o texto reconhecido pela expressão regular para que seja concatenadoc om a expressão regular seguinte.
+- **void yyless(int n)** : rotina, invocada numa ação semântica, que permite considerar apenas os primeiros **n** carácteres de **yytext**, sendo os restantes reconsiderados para processamento.
+
+### Variáveis globais
+
+**char yytext[]** : cadeia de caracteres que contém o texto reconhecido pela expressão regular.
+**int yyleng** : comprimento da cadeia de caracteres que contém o texto reconhecido.
+**int yylineno** : número de linha do ficheiro de entrada onde se encontra o último.
+**FILE \*yyin** : ponteiro para o ficheiro de onde são lidos os carácteres a analisar.
+**FILE \*yyout** : ponteiro para o ficheiro de onde é escrito o texto através da macro ```ÈCHO```, ou outro texto que o programador deseje.
+**YYSTYPE yylval** : variável que transporta o valor do elemento lexical reconhecido para outra ferramenta.
+
+### Macros Predefinidas
+
+- **ECHO** : imprime o texto reconhecido (ou seja, **yytext**) pela expressão regular, ou acumulando de outras regras através de sucessivas invocações a **yymore()**. Na realidade está definido como ```#define ECHO fwrite(yytext, yyleng, 1, yyout)```.
+- **REJECT** : depois de processada a ação semântica que inclui a chamada ao **REJECT** o processamento recomeça no início do texto reconhecido pela regra, mas ignorando a regra atual.
+
+### Acesso direto a funções de entrada/saída
