@@ -105,9 +105,9 @@ Um analisador lexical produz os elementos lexicais de um programa com base numa 
 ### Tarefas do Analisador Lexical
 
 Ficheiro, com extenção ```.l```, dividido em três zonas separadas por uma linha contendo apenas ```%%```:
-- **Declarações** : de macros, de agrupamentos e declarações da linguagem de apoio entre ```%{``` e ```%}```.
-- **Regras** : expressão regular separada da ação semântica por um ou mais espaços em branco. A ação semântica é uma instrução da linguagem ou bloco delimitado por chavetas.
-- **Código** : realização de funções, algumas das quais declaradas acima.
+1. **Declarações** : de macros, de agrupamentos e declarações da linguagem de apoio entre ```%{``` e ```%}```.
+2. **Regras** : expressão regular separada da ação semântica por um ou mais espaços em branco. A ação semântica é uma instrução da linguagem ou bloco delimitado por chavetas.
+3. **Código** : realização de funções, algumas das quais declaradas acima.
 
 Gerar um analisador lexical, designado por ```lex.yy.c```, com o comando ```lex xxxx.l``` e compilado com o auxílio da biblioteca ```-ll``` (o **flex** utiliza a biblioteca ```-lfl```).
 
@@ -130,7 +130,7 @@ dependente  printf("Encontrei 'dependente'\n");
 [a-z]*      ECHO;
 ```
 
-### Funções:
+### Funções
 
 - **int yylex(void)** : rotina, gerada pelo **lex**, que realiza a análise lexical. Devolve o número do elemento lexical encontrado ou 0 (zero) quanto atinge o fim do processamento.
 - **int yywrap(void)** : rotina, escrita pelo programador, que quando um ficheiro chega ao fim permite continuar o processamento noutro ficheiro. Caso não haja mais ficheiros a processar **yywrap** devolve 1 (um), caso contrário atualiza a variável **yyin** para o ficheiro seguinte e devolve 0 (zero).
@@ -139,12 +139,12 @@ dependente  printf("Encontrei 'dependente'\n");
 
 ### Variáveis globais
 
-**char yytext[]** : cadeia de caracteres que contém o texto reconhecido pela expressão regular.
-**int yyleng** : comprimento da cadeia de caracteres que contém o texto reconhecido.
-**int yylineno** : número de linha do ficheiro de entrada onde se encontra o último.
-**FILE \*yyin** : ponteiro para o ficheiro de onde são lidos os carácteres a analisar.
-**FILE \*yyout** : ponteiro para o ficheiro de onde é escrito o texto através da macro ```ÈCHO```, ou outro texto que o programador deseje.
-**YYSTYPE yylval** : variável que transporta o valor do elemento lexical reconhecido para outra ferramenta.
+- **char yytext[]** : cadeia de caracteres que contém o texto reconhecido pela expressão regular.
+- **int yyleng** : comprimento da cadeia de caracteres que contém o texto reconhecido.
+- **int yylineno** : número de linha do ficheiro de entrada onde se encontra o último.
+- **FILE \*yyin** : ponteiro para o ficheiro de onde são lidos os carácteres a analisar.
+- **FILE \*yyout** : ponteiro para o ficheiro de onde é escrito o texto através da macro ```ÈCHO```, ou outro texto que o programador deseje.
+- **YYSTYPE yylval** : variável que transporta o valor do elemento lexical reconhecido para outra ferramenta.
 
 ### Macros Predefinidas
 
@@ -152,3 +152,55 @@ dependente  printf("Encontrei 'dependente'\n");
 - **REJECT** : depois de processada a ação semântica que inclui a chamada ao **REJECT** o processamento recomeça no início do texto reconhecido pela regra, mas ignorando a regra atual.
 
 ### Acesso direto a funções de entrada/saída
+
+- **int input(void)** : esta rotina permite ler o carácter seguinte, a partir do ficheiro de entrada, sem que seja processado pelo analisador lexical. O valor ```-1``` (fim de ficheiro) é apenas devolvido no fi do processamento, pois a rotina **yywarp()** é chamada se necessário.
+- **void output(int)** : imprime o carácter em **yyout**. Esta rotina não é suportada pelo **flex**.
+- **void unput(int)** : reloca o carácter passado como argumento para processamento pelas expressões regulares seguintes. Notar que caso se pretenda recolocar diversos caracteres estes devem ser relocados pela ordem inversa.
+
+### Substituições 
+
+- As substituições permitem simplificar a escrita das expressões regulares.
+- Expressão regular, na zona das declarações seguida do identificador da substituição.
+- Usa-se, em expressões regulares subsequentes, entre-chavetas.
+```flex
+DIG [0-9]
+INT {DIG}+
+EXP [Ee][+-]?{INT}
+REAL {INT}"."{INT}({EXP})?
+```
+
+### Agrupamentos
+
+- Grupos de expressões regulares ativadas por ações 'BEGIN' e identificadas por '%s' na zona das declarações.
+- As expressões regulares do agrupamento são precedidas do identificador entre < e >. O agrupamento 'INITIAL' identifica as regras globais, permanentemente ativas.
+- Em cada instante, apenas estão ativas as regras globais e um dos agrupamentos, se tiver sido executada uma ação 'BEGIN'.
+```flex
+%s IN
+%%
+<IN>.|\n  ECHO;
+<IN>^"%%" BEGIN INITIAL;
+^"%%"     BEGIN IN;
+.|\n      ;
+```
+
+### Ligação ao ```yacc```
+
+- **Elementos a ignorar** : comentários ou espaços em branco, por exemplo.
+- **Elementos lexicais úteis _(tokens)_** : descritos por
+  - **tipo** : número inteiro devolvido (instrução ```return``` na ação semântica) pela rotina **yylex()** e que descreve o _token_ encontrado: valores de 1 a 255 para caracteres isolados ASCII e >256 para conjuntos de caracteres (devolve 0 para fim e 256 para erro).
+  - **valor** : quantidade a guardar na variável global **yylval** para alguns _tokens_, por exemplo inteiros, identificadores ou cadeias de caracteres.
+- **Descrição dos _tokens_ necessários** : produzido pelo **yacc**, com opção **-d**, no ficheiro **y.tab.h**. Contém as constantes > 256 a variável **yylval** e o seu tipo, devendo ser incluído nas declarações.
+
+### Extensões do ```flex```
+
+- **Modo mais compatível com _lex_** : gerar com **flex -l** ou incluir ```%option lex-compat``` nas declarações.
+- **Acesso a _yylineno_** : usar o modo de compatibilidade com **lex** ou incluir ```%option yylineno``` nas declarações.
+- **Agrupamentos exclusivos** : apenas as regras do agrupamento ativo estão válidas, não incluindo as globais, usando '%x' em vez de '%s'.
+- **Pilha de agrupamentos** : ao incluir ```%option stack``` pode-se empilhar agrupamentos com: ```yy_push_state(int)```, ```yy_pop_state()``` e ```yy_top_state()```.
+- **Modo debug** : gerar com **flex -d** e colocar a variável **yy_flex_debug** a 1.
+
+### Eficiência de Processamento
+
+- Tempo de processamento do autómato é propocional à dimensão do ficheiro a processar e não ao número de expressões regulares usadas (pode influir no número de estados e logo no espaço ocupado).
+- Utilizar o mais possível de expressões regulares e fazer o mínimo em **C**.
+- Regras mais específicas no princípio da especificação (palavras reservadas, por exemplo) e regras mais genéricas no fim da especificação (identificadores, por exemplo).
