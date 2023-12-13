@@ -204,3 +204,192 @@ REAL {INT}"."{INT}({EXP})?
 - Tempo de processamento do autómato é propocional à dimensão do ficheiro a processar e não ao número de expressões regulares usadas (pode influir no número de estados e logo no espaço ocupado).
 - Utilizar o mais possível de expressões regulares e fazer o mínimo em **C**.
 - Regras mais específicas no princípio da especificação (palavras reservadas, por exemplo) e regras mais genéricas no fim da especificação (identificadores, por exemplo).
+
+## Analisador Sintático Bison/Yacc
+
+**Bison**: Dada a especificação de um gramática, gera código capaz de organizar os _tokens_ da entrada numa árvore sintática de acordo com a gramática. Bison é compatível com YACC.
+- Gramática especificada em _Backus-Naur Form_ (BNF)
+  - cada regra está associada a uma ação semântica
+  - as ações semânticas são executadas quando cada nó é **reduzido** (_i.e._, quando todo o corpo foi visto)
+- Parser gerado é do tipo LALR(1) (**Look-Ahead LR**)
+  - para além de LALR(1), e a diferença do Yacc, o Bison é capaz de gerar outros parsers (ex:canonical LR(1)).
+ 
+### Estrutura da Especificação
+
+```yacc
+%{
+código de preparação
+%}
+definições
+%%
+regras e ações semânticas
+%%
+código
+```
+
+- Três secções separadas por uma linha, apenas com os caracteres ```%%```
+- Definições e regras vão definir a função ```yyparse()``` do ```file.tab.c```
+- Código é adicionado ao fim do ```file.tab.c```
+
+### Estrutura - Código de Preparação
+O código de preparação pode conter:
+- includes (_e.g._, ```#include <iostream>```)
+- declaração de variáveis globais
+- definição de funções auxiliares
+- macros
+- ...
+
+### Estrutura - Definições
+Definições podem incluir:
+- Definição de símbolos terminais (usados Flex & Yacc)
+  - ```%token tWHILE tIF tPRINT tREAD tBEGIN tEND```
+- Tipos disponíveis para os símbolos (terminais e não terminais)
+  - ```%union { ... };```  
+- Tipificação de símbolos terminais
+  - ```%token<s> tIDENTIFIER tSTRING```
+- Tipificação de símbolos não terminais
+  - ```%type<lvalue> lval```
+ 
+### Estrutura - ```%union```
+
+Tipos disponíveis para os símbolos (terminais e não terminais)
+```yacc
+int i ;                              /* integer valu  */
+std :: strin  *s;                    /* symbol nam  */
+cdk :: basic node *node ;            /* node pointer */
+cdk :: sequence node *sequence ;     /* sequence node */
+cdk :: expression node *expression ; /* expression node */
+cdk :: lvalue node *lvalue ;         /* lvalue node */
+} ;
+```
+
+- União de todos os tipos de dados que cada _token_ corresponde apenas a um dos casos
+- Cada novo tipo de _token_ (símbolo terminal) ou nó da árvore (símbolo não teminal), tem de ser declarado na ```%union```
+
+<p align="center">
+  <img src="https://github.com/AfonsoPaula/Sigma-compiler/assets/67978137/d41576dc-e68e-493a-b4ce-9c788ef53247" width="50%">
+</p>
+
+- ficheiro **file.tab.c** com o parser gerado
+- ```-t``` inclusão de instruções de debug no código compilado
+- ```-v``` ficheiro **file.output** com descrição do parser gerado
+- ```-d``` ficheiro **file.tab.h** com identificação de tokens e os tipos
+
+### Estrutura - Regras e Ações
+
+Uma especificação Bison/Yacc tem associado pares:
+**Rgras**    { **Ação** semântica }
+
+- O corpo da **Regra** é constituído por zero ou mais símbolos temrinais e não terminais:
+- A **Ação** (Código C/C++ arbitrário)
+
+A pilha do Bison:
+- Contém todos os símbolos do corpo
+- Quando a avaliação do corpo chega ao fim
+  - é feito **pop** de todos os símbolos do corpo
+  - é feito **push** do símbolo da cabeça da regra
+  - é avaliado o atributo da cabeça da regra
+ 
+Comunicação entre as ações e o parser, é feita através do símbolo ```$```
+- ```$1```, ```$2```, ..., ```$n``` refere-se ao 1º, 2º, ..., nº símbolos do corpo
+- ```$$``` refere-se ao valor do símbolo não terminal da cabeça da regra
+- Por omissão, se a ação semântica for vazia, o valor atribuído ao símbolo na cabeça da regra é o valor do 1º símbolo do corpo (```$$``` = ```$1```)
+
+```yacc
+list : stmt { $$ = new cdk : : sequence node (LINE , $1 ); }
+     | list stmt { $$ = new cdk : : sequence node (LINE , $2 , $1 ); }
+     ;
+stmt : expr ’ ; ’                                 { $$ = new simple : : evaluation_node (LINE , $1 ); }
+     | tPRINT exp r ’ ; ’                         { $$ = new simple : : print_node (LINE , $2 ); }
+     | tREAD l v a l ’ ; ’                        { $$ = new simple : : read_node (LINE , $2 ); }
+     | tWHILE ’ ( ’ ex p r ’ ) ’ stmt             { $$ = new simple : : while_node (LINE , $3 , $5 ); }
+     | tI F ’ ( ’ ex p r ’ ) ’ stmt %p r e c tIFX { $$ = new simple : : if_node (LINE , $3 , $5 ); }
+     | tIF ’ ( ’ expr ’ ) ’ stmt tELSE stmt       { $$ = new simple : : if_else_node (LINE , $3 , $5 , $7 ); }
+     | ’{ ’ list ’} ’                             { $$ = $2 ; }
+     ;
+expr : tINTEGER                      { $$ = new cdk : : integer_node (LINE , $1 ); }
+     | tSTRING                       { $$ = new cdk : : string_node (LINE , $1 ); }
+     | ’’ e x p r %prec tUNARY       { $$ = new cdk : : neg_node (LINE , $2 ); }
+     | expr ’+’ expr                 { $$ = new cdk : : add_node (LINE , $1 , $3 ); }
+     | expr ’’ expr                  { $$ = new cdk : : sub_node (LINE , $1 , $3 ); }
+     | expr ’*’ expr                 { $$ = new cdk : : mul_node (LINE , $1 , $3 ); }
+     | expr ’/’ expr                 { $$ = new cdk : : div_node (LINE , $1 , $3 ); }
+     | expr ’%’ expr                 { $$ = new cdk : : mod_node (LINE , $1 , $3 ); }
+     | expr ’<’ expr                 { $$ = new cdk : : lt_node (LINE , $1 , $3 ); }
+     | expr ’>’ expr                 { $$ = new cdk : : gt_node (LINE , $1 , $3 ); }
+     | expr tGE expr                 { $$ = new cdk : : ge_node (LINE , $1 , $3 ); }
+     | expr tLE expr                 { $$ = new cdk : : le_node (LINE , $1 , $3 ); }
+     | exp r tNE expr                { $$ = new cdk : : ne_node (LINE , $1 , $3 ); }
+     | exp r tEQ expr                { $$ = new cdk : : eq_node (LINE , $1 , $3 ); }
+     | ’( ’ expr ’) ’                { $$ = $2 ; }
+     | lval                          { $$ = new cdk : : rvalue_node (LINE , $1 ); }
+     | lval ’=’ expr                 { $$ = new cdk : : assignment node (LINE , $1 , $3 ); }
+     ;
+lval : tIDENTIFIER { $$ = new cdk : : variable_node (LINE , $1 ); }
+     ;
+```
+
+### Estrutura  Precedências
+
+Precedências/associatividades:
+- Associados a _tokens_ na secção **Declarações**
+- Usados na resolução de conflitos/ambiguidades
+
+Especificado com linhas iniciadas com ```%left```, ```%right``` ou ```%nonassoc```
+- Todos os _tokens_ na mesma linha têm o mesmo nível de precedência/associatividade
+- ```%left``` - define _tokens_ associativos à esquerda
+- ```%right``` - define _tokens_ associativos à direita
+- ```%nonassoc``` - define _tokens_ que não se podem associar com eles próprios
+
+Exemplo:
+```yacc
+%nonassoc tIFX
+%nonassoc tELSE
+%right ’=’
+%left tGE tLE tEQ tNE ’>’ ’<’
+%left ’+’ ’-’
+%left ’*’ ’/’ ’%’
+%nonassoc tUNARY
+```
+Input: a = b = c * d  e  f * g
+lido como: a = (b = (((c * d)  e)  (f * g)))
+
+```%prec``` - muda o nível de precedência associado a uma regra
+- Aparece imediatamente depois do corpo da regra
+- Seguido de um _token_
+- Faz com quea regra fique com a mesma precedência do _token_
+
+```yacc
+%right ’=’
+%left tGE tLE tEQ tNE ’>’ ’<’
+%left ’+’ ’-’
+%left ’*’ ’/’ ’%’
+%nonassoc tUNARY
+
+%%
+
+expr : tINTEGER              { $$ = new cdk::integer_node(LINE, $1); }
+     | tSTRING               { $$ = new cdk::string_node(LINE, $1); }
+     | ’-’ expr %prec tUNARY { $$ = new cdk::neg_node(LINE, $2); }
+     | expr ’+’ expr         { $$ = new cdk::add_node(LINE, $1, $3); }
+     | expr ’-’ expr         { $$ = new cdk::sub_node(LINE, $1, $3); }
+     | expr ’*’ expr         { $$ = new cdk::mul_node(LINE, $1, $3); }
+...
+```
+
+### Debbuging
+
+O despiste de problemas em especificações Flex e Bison pode ser realizado acrescentando ao ficheiro Flex (```.l```):
+- A opção debug no início ```%option debug```
+- A seguinte ação antes da primeira:
+```yacc
+...
+%%
+                {yydebug=1;}
+expr : tINTEGER { $$ = new cdk::integer_node(LINE, $1); }
+...
+```
+
+O desenvolvimento da gramática nos compiladores simples abordados deve ser realizado de forma incremental:
+- Maior facilidade de deteção de possíveis conflitos.
+- A opção ```-Wcounterexamples``` do Bison permite gerar exemplos dos conflitos.
