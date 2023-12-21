@@ -52,10 +52,12 @@ extern int yydebug;
     EXTCMD = 258,
     LINE = 259,
     CREATE = 260,
-    DATABASE = 261,
-    SEMICOLON = 262,
-    IDENTIFIER = 263,
-    NUMBER = 264
+    SHOW = 261,
+    DATABASE = 262,
+    DATABASES = 263,
+    SEMICOLON = 264,
+    IDENTIFIER = 265,
+    NUMBER = 266
   };
 #endif
 
@@ -66,7 +68,7 @@ union YYSTYPE
 #line 18 "parser.y"
  int num; char* id;
 
-#line 70 "parser.tab.h"
+#line 72 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
