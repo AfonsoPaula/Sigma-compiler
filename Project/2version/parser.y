@@ -6,15 +6,16 @@ int yylex(void);
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_DATABASES 2
 
 typedef struct{ char name[256]; } Database;
-Database databases[100];
+Database databases[MAX_DATABASES];
 int numDatabases = 0;
 void createDatabase(char* dbName);
 extern char *yyget_text(void);
 %}
 
-%union { int num; char id;}
+%union { int num; char* id;}
 %start query
 %token EXTCMD LINE
 %token CREATE DATABASE SEMICOLON
@@ -31,10 +32,10 @@ query: command SEMICOLON             { ; }
 
 command: createdb
 
-createdb: CREATE DATABASE IDENTIFIER SEMICOLON LINE   { printf("Reconheceu!\n"); createDatabase($3); }
-        | CREATE error LINE                           { printf("| [Query 'CREATE DATABASE' não se encontra bem construida!]\n");
-                                                        printf("| [DICA: CREATE DATABASE db_nome;])\n"); 
-                                                        printf("| [ENTER] para tentar de novo <--\n|");}
+createdb: CREATE DATABASE IDENTIFIER SEMICOLON LINE   { createDatabase($3); }
+        | CREATE error LINE                           { printf(" [Query 'CREATE DATABASE' não se encontra bem construida!]\n");
+                                                        printf(" [DICA: CREATE DATABASE db_nome;])\n\n"); 
+                                                        printf(" [ENTER] para tentar de novo ");}
         ;
 
 %%
@@ -43,17 +44,21 @@ void createDatabase(char* dbname) {
 
     for (int i = 0; i < numDatabases; ++i) {
         if (strcmp(databases[i].name, dbname) == 0) {
-            printf("Erro: A base de dados '%s' já existe.\n", dbname);
+            printf("\n [Erro: A base de dados '%s' já existe]\n", dbname);
+            printf(" [ENTER] para tentar de novo\n");
             return;
         }
     }
 
-    if (numDatabases < 100) {
+    if (numDatabases < MAX_DATABASES) {
         strcpy(databases[numDatabases].name, dbname);
         numDatabases++;
-        printf("Base de dados '%s' criada com sucesso.\n", dbname);
+        printf("\n [Base de dados '%s' criada com sucesso!]\n", dbname);
+        printf(" [ENTER] para prosseguir\n");
+
     } else {
-        printf("Erro: Limite de bases de dados atingido.\n");
+        printf("\n [Erro: Limite de bases de dados atingido]\n");
+        printf(" [ENTER] para tentar de novo\n");
     }
 
 }
@@ -63,6 +68,6 @@ void yyerror(const char* s) {
 
     // Verifica se a string contém apenas o caractere de nova linha
     if (strcmp(text, "\n") != 0) {
-        fprintf(stderr, "| [ Erro na análise - '%s' ]\n|\n", text);
+        fprintf(stderr, " [Erro na análise - '%s']\n", text);
     }
 }
