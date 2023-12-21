@@ -1,7 +1,9 @@
 %{
-#include "sintaxe.tab.h"
+    /* Definition Section */
+    #include "sintaxe.tab.h"
 %}
 
+/* Rule Section */
 %%
 
 "CREATE"                { return CREATE; }
@@ -14,4 +16,7 @@
 
 %%
 
-int yywrap() { return 1; }
+int yywrap() 
+{
+    return 1;
+}

@@ -1,32 +1,36 @@
 %{
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+    /* Definition Section */
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
 
-void yyerror(const char* s);
+    void yyerror(const char* s);
 
-typedef struct {
-    char name[256];
-} Database;
+    typedef struct {
+        char name[256];
+    } Database;
 
-Database databases[100];
+    Database databases[100];
 
-int numDatabases = 0;
+    int numDatabases = 0;
 
-void createDatabase(char* dbName);
+    void createDatabase(char* dbName);
 %}
 
 %union { char* strval; }
 %token <strval> IDENTIFIER
 %token CREATE DATABASE SEMICOLON NEWLINE
 
+/* Rule Section */
 %%
 
 statement: CREATE DATABASE IDENTIFIER SEMICOLON NEWLINE { printf("Reconheceu!\n"); createDatabase($3); }
-         | statement NEWLINE
-         ;
+        | statement NEWLINE
+        ;
 
 %%
+
+#include "lex.yy.c" /* ou extern int yylex() */
 
 void createDatabase(char* dbname) {
 
