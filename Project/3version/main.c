@@ -5,7 +5,7 @@
 int main() {
     printf("_________________________________________________________________________________________________\n\n");
     printf(":::::::::::::::::::::::::::::::::::: Bem-vindo ao SQL Compiler ::::::::::::::::::::::::::::::::::\n\n");
-    printf("[Insira as suas queries]                                                 Digite [exit] para sair \n");
+    printf("[Insira as suas queries]                                                  Digite [exit] para sair \n");
     printf("_________________________________________________________________________________________________\n\n");
 
     while (1) {

@@ -8,13 +8,19 @@
 /* Rule Section */
 %%
 
-"exit"                  { return EXTCMD; }
+[eE][xX][iI][tT]        { return EXTCMD; }
 
 "CREATE"                { return CREATE; }
 "SHOW"                  { return SHOW; }
+"DROP"                  { return DROP; }
 "DATABASE"              { return DATABASE; }
 "DATABASES"             { return DATABASES; }
+"TABLE"                 { return TABLE; }
+
 ";"                     { return SEMICOLON; }
+","                     { return COMMA; }
+"("                     { return OPENPAR; }
+")"                     { return CLOSEPAR;}
 
 [a-zA-Z][a-zA-Z0-9_]*   { yylval.id = strdup(yytext);     return IDENTIFIER; }
 [0-9]+                  { yylval.num = atoi(yytext);      return NUMBER; }
