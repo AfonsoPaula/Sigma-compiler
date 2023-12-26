@@ -8,27 +8,51 @@ extern char *yyget_text(void);
 #include <string.h>
 
 #define MAX_DATABASES     100
+#define MAX_TABLES        100
+#define MAX_COLUMNS        50
+#define MAX_ROWS          100
+#define MAX_TABLES_PER_DB  50
+
+/* ----------------------- TABLES ------------------------ */
+typedef struct {
+    char name[256];
+    char columns[MAX_COLUMNS][256];
+    int numColumns;
+    char data[MAX_ROWS][MAX_COLUMNS][256];
+    int numRows;
+} Table;
+
+Table tables[MAX_TABLES];
+int numTables = 0;
 
 /* --------------------- DATABASES ----------------------- */
 typedef struct{
     char name[256];
+    Table tables[MAX_TABLES_PER_DB];
+    int numTables;
 } Database;
 
 Database databases[MAX_DATABASES];
 int numDatabases = 0;
 
 /* ---------------------- FUNCTIONS ---------------------- */
-void showDatabases();
 void createDatabase(char* dbName);
+void showDatabases();
 void dropDatabase(char* dbname);
 
+void useDatabase(char* dbname);
+void createTable(char* tableName);
+
+int activeDatabaseIndex = -1;
 %}
 
 %union { int num; char* id;}
 %start query
+
 %token EXTCMD LINE
-%token CREATE SHOW DROP DATABASE DATABASES TABLE USE
+%token CREATE SHOW DROP DATABASE DATABASES USE TABLE
 %token SEMICOLON COMMA OPENPAR CLOSEPAR
+
 %token <id> IDENTIFIER
 %token <num> NUMBER
 
@@ -44,12 +68,14 @@ command: createdb
         |showdbs
         |dropdb
         |usedb
+        |createtb
         ;
 
 createdb: CREATE DATABASE IDENTIFIER SEMICOLON LINE   { createDatabase($3); }
-        | CREATE error LINE                           { printf("\n [Query 'CREATE DATABASE' não se encontra bem construida!]\n");
+        | CREATE DATABASE error LINE                  { printf("\n [Query 'CREATE DATABASE' não se encontra bem construida!]\n");
                                                         printf(" [DICA: CREATE DATABASE db_nome;])\n\n"); 
                                                         printf(" [ENTER] para tentar de novo "); }
+        | CREATE error LINE {printf(" [Pretende 'CREATE DATABASE' ou 'CREATE TABLE'?]\n");}
         ;
 
 showdbs:  SHOW DATABASES SEMICOLON LINE               { showDatabases(); }
@@ -64,6 +90,16 @@ dropdb:  DROP DATABASE IDENTIFIER SEMICOLON LINE      { dropDatabase($3); }
                                                         printf(" [ENTER] para tentar de novo "); }
         ;
 
+usedb: USE IDENTIFIER SEMICOLON LINE                  { useDatabase($2); }
+    | USE error LINE                                  { printf("\n [Query 'USE' não se encontra bem construida!]\n");
+                                                        printf(" [DICA: USE db_nome;])\n\n"); 
+                                                        printf(" [ENTER] para tentar de novo "); }
+
+createtb: CREATE TABLE IDENTIFIER SEMICOLON LINE      { createTable($3); }
+        | CREATE TABLE error SEMICOLON LINE           { printf("\n [Query 'CREATE TABLE' não está bem construída!]\n");
+                                                        printf(" [DICA: CREATE TABLE table_nome;]\n\n"); 
+                                                        printf(" [ENTER] para tentar de novo "); }
+        ;
 %%
 
 /* -------------------------- CREATE DATABASE ------------------------- */
@@ -124,6 +160,84 @@ void dropDatabase(char* dbname)
             printf("\n [Erro: A base de dados '%s' não foi encontrada]\n", dbname);
             printf(" [ENTER] para tentar de novo\n");
         }
+    }
+}
+/* --------------------------- USE DATABASE ---------------------------- */
+void useDatabase(char* dbname)
+{
+    int found = 0;
+
+    for (int i = 0; i < numDatabases; ++i) {
+        if (strcmp(databases[i].name, dbname) == 0) {
+            activeDatabaseIndex = i;
+            found = 1;
+            printf("\n [Base de dados '%s' (index:[%i]) ativa]\n", dbname, i);
+            printf(" [A partir de agora, você pode criar tabelas nesta base de dados]\n");
+            printf(" [ENTER] para prosseguir\n");
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("\n [Erro: A base de dados '%s' não foi encontrada]\n", dbname);
+        printf(" [ENTER] para tentar de novo\n");
+    }
+}
+/* --------------------------- CREATE TABLE ---------------------------- */
+void createTable(char* tableName)
+{
+    int numColumns;
+    char columnName[256];
+
+    // Verificar se há uma base de dados ativa
+    if (activeDatabaseIndex == -1) {
+        printf("\n [Erro: Nenhuma base de dados ativa]\n");
+        printf(" [ENTER] para tentar de novo\n");
+        return;
+    }
+
+    printf("\n [Quantas colunas deseja adicionar à tabela '%s'?]: ", tableName);
+    scanf("%d", &numColumns);
+    printf("\n");
+
+    if (numColumns <= 0 || numColumns > MAX_COLUMNS) {
+        printf("\n [Número inválido de colunas (entre 0 e 50)]\n");
+        printf(" [ENTER] para tentar de novo\n");
+        return;
+    }
+
+    Table newTable;
+    strcpy(newTable.name, tableName);
+    newTable.numColumns = numColumns;
+
+    for (int i = 0; i < numColumns; ++i) {
+        printf(" [Digite o nome da coluna %d]: ", i);
+        scanf("%s", columnName);
+        strcpy(newTable.columns[i], columnName);
+    }
+
+    // Adicione a nova tabela à base de dados ativa
+    databases[activeDatabaseIndex].tables[databases[activeDatabaseIndex].numTables] = newTable;
+    databases[activeDatabaseIndex].numTables++;
+
+    // Verificar se a tabela foi armazenada na base de dados
+    int found = 0;
+    for (int i = 0; i < databases[activeDatabaseIndex].numTables; ++i) {
+        if (strcmp(databases[activeDatabaseIndex].tables[i].name, tableName) == 0) {
+            found = 1;
+            break;
+        }
+    }
+
+    // Mensagem de confirmação
+    if (found) {
+        printf("\n Tabela '%s' criada com sucesso na base de dados '%s' com as seguintes colunas:\n", tableName, databases[activeDatabaseIndex].name);
+        for (int i = 0; i < newTable.numColumns; ++i) {
+            printf("  -> %s\n", newTable.columns[i]);
+        }
+        printf("\n");
+    } else {
+        printf("\n [Erro: A tabela não foi armazenada corretamente na base de dados '%s']\n", databases[activeDatabaseIndex].name);
     }
 }
 /* -------------------------- YYERROR ANALISE -------------------------- */
