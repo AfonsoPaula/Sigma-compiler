@@ -41,7 +41,7 @@ void showDatabases();
 void dropDatabase(char* dbname);
 
 void useDatabase(char* dbname);
-void createTable(char* tableName);
+void createTable(char* tableName, int numColumns);
 
 int activeDatabaseIndex = -1;
 %}
@@ -95,10 +95,10 @@ usedb: USE IDENTIFIER SEMICOLON LINE                  { useDatabase($2); }
                                                         printf(" [DICA: USE db_nome;])\n\n"); 
                                                         printf(" [ENTER] para tentar de novo "); }
 
-createtb: CREATE TABLE IDENTIFIER SEMICOLON LINE      { createTable($3); }
-        | CREATE TABLE error SEMICOLON LINE           { printf("\n [Query 'CREATE TABLE' não está bem construída!]\n");
-                                                        printf(" [DICA: CREATE TABLE table_nome;]\n\n"); 
-                                                        printf(" [ENTER] para tentar de novo "); }
+createtb: CREATE TABLE IDENTIFIER OPENPAR NUMBER CLOSEPAR SEMICOLON LINE      { createTable($3,$5); }
+        | CREATE TABLE error LINE                                             { printf("\n [Query 'CREATE TABLE' não está bem construída!]\n");
+                                                                                printf(" [DICA: CREATE TABLE table_name (numColumns);]\n\n"); 
+                                                                                printf(" [ENTER] para tentar de novo "); }
         ;
 %%
 
@@ -184,9 +184,8 @@ void useDatabase(char* dbname)
     }
 }
 /* --------------------------- CREATE TABLE ---------------------------- */
-void createTable(char* tableName)
+void createTable(char* tableName, int numColumns)
 {
-    int numColumns;
     char columnName[256];
 
     // Verificar se há uma base de dados ativa
@@ -196,10 +195,7 @@ void createTable(char* tableName)
         return;
     }
 
-    printf("\n [Quantas colunas deseja adicionar à tabela '%s'?]: ", tableName);
-    scanf("%d", &numColumns);
-    printf("\n");
-
+    // Verificar se o número inserido é válido
     if (numColumns <= 0 || numColumns > MAX_COLUMNS) {
         printf("\n [Número inválido de colunas (entre 0 e 50)]\n");
         printf(" [ENTER] para tentar de novo\n");
@@ -211,7 +207,7 @@ void createTable(char* tableName)
     newTable.numColumns = numColumns;
 
     for (int i = 0; i < numColumns; ++i) {
-        printf(" [Digite o nome da coluna %d]: ", i);
+        printf("\n [Digite o nome da coluna %d]: ", i+1);
         scanf("%s", columnName);
         strcpy(newTable.columns[i], columnName);
     }
