@@ -58,12 +58,13 @@ extern int yydebug;
     DATABASES = 264,
     USE = 265,
     TABLE = 266,
-    SEMICOLON = 267,
-    COMMA = 268,
-    OPENPAR = 269,
-    CLOSEPAR = 270,
-    IDENTIFIER = 271,
-    NUMBER = 272
+    WHICH = 267,
+    SEMICOLON = 268,
+    COMMA = 269,
+    OPENPAR = 270,
+    CLOSEPAR = 271,
+    IDENTIFIER = 272,
+    NUMBER = 273
   };
 #endif
 
@@ -71,10 +72,10 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 49 "parser.y"
+#line 50 "parser.y"
  int num; char* id;
 
-#line 78 "parser.tab.h"
+#line 79 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

@@ -41,6 +41,7 @@ void showDatabases();
 void dropDatabase(char* dbname);
 
 void useDatabase(char* dbname);
+void whichdb();
 void createTable(char* tableName, int numColumns);
 
 int activeDatabaseIndex = -1;
@@ -50,7 +51,7 @@ int activeDatabaseIndex = -1;
 %start query
 
 %token EXTCMD LINE
-%token CREATE SHOW DROP DATABASE DATABASES USE TABLE
+%token CREATE SHOW DROP DATABASE DATABASES USE TABLE WHICH
 %token SEMICOLON COMMA OPENPAR CLOSEPAR
 
 %token <id> IDENTIFIER
@@ -59,44 +60,56 @@ int activeDatabaseIndex = -1;
 /* -------------------- Rule Section --------------------- */
 %%
 
-query: command SEMICOLON             { ; }
-    |  EXTCMD                        { exit(EXIT_SUCCESS); }
-    |  query command SEMICOLON       { ; }
+query: command SEMICOLON                                                      { ; }
+    |  EXTCMD                                                                 { printf("\n A sair do Sigma Compiler...\n");
+                                                                                printf(" Até breve!\n");
+                                                                                printf("_________________________________________________________________________________________________\n\n\n\n");
+                                                                                exit(EXIT_SUCCESS); }
+    |  query command SEMICOLON                                                { ; }
     ;
 
 command: createdb 
         |showdbs
         |dropdb
         |usedb
+        |whichdb
         |createtb
         ;
 
-createdb: CREATE DATABASE IDENTIFIER SEMICOLON LINE   { createDatabase($3); }
-        | CREATE DATABASE error LINE                  { printf("\n [Query 'CREATE DATABASE' não se encontra bem construida!]\n");
-                                                        printf(" [DICA: CREATE DATABASE db_nome;])\n\n"); 
-                                                        printf(" [ENTER] para tentar de novo "); }
-        | CREATE error LINE {printf(" [Pretende 'CREATE DATABASE' ou 'CREATE TABLE'?]\n");}
+createdb: CREATE DATABASE IDENTIFIER SEMICOLON LINE                           { createDatabase($3); }
+        | CREATE DATABASE error LINE                                          { printf("\n [Query 'CREATE DATABASE' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: CREATE DATABASE db_nome;])\n\n"); 
+                                                                                printf(" [ENTER] para tentar de novo "); }
+        | CREATE error LINE                                                   { printf(" [DICA: 'CREATE DATABASE' ou 'CREATE TABLE'?]\n\n");
+                                                                                printf(" [ENTER] para tentar de novo ");}
         ;
 
-showdbs:  SHOW DATABASES SEMICOLON LINE               { showDatabases(); }
-        | SHOW error LINE                             { printf("\n [Query 'SHOW' não se encontra bem construida!]\n");
-                                                        printf(" [DICA: SHOW DATABASES;]\n\n"); 
-                                                        printf(" [ENTER] para tentar de novo "); }
+showdbs:  SHOW DATABASES SEMICOLON LINE                                       { showDatabases(); }
+        | SHOW error LINE                                                     { printf("\n [Query 'SHOW' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: SHOW DATABASES;]\n\n"); 
+                                                                                printf(" [ENTER] para tentar de novo "); }
         ;
 
-dropdb:  DROP DATABASE IDENTIFIER SEMICOLON LINE      { dropDatabase($3); }
-        | DROP error LINE                             { printf("\n [Query 'DROP' não se encontra bem construida!]\n");
-                                                        printf(" [DICA: DROP DATABASE db_nome;])\n\n"); 
-                                                        printf(" [ENTER] para tentar de novo "); }
+dropdb:  DROP DATABASE IDENTIFIER SEMICOLON LINE                              { dropDatabase($3); }
+        |DROP error LINE                                                      { printf("\n [Query 'DROP' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: DROP DATABASE db_nome;])\n\n"); 
+                                                                                printf(" [ENTER] para tentar de novo "); }
         ;
 
-usedb: USE IDENTIFIER SEMICOLON LINE                  { useDatabase($2); }
-    | USE error LINE                                  { printf("\n [Query 'USE' não se encontra bem construida!]\n");
-                                                        printf(" [DICA: USE db_nome;])\n\n"); 
-                                                        printf(" [ENTER] para tentar de novo "); }
+usedb: USE IDENTIFIER SEMICOLON LINE                                          { useDatabase($2); }
+    |  USE error LINE                                                         { printf("\n [Query 'USE' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: USE db_nome;])\n\n"); 
+                                                                                printf(" [ENTER] para tentar de novo "); }
+    ;
+
+whichdb: WHICH DATABASE SEMICOLON LINE                                        { whichdb(); }
+        |WHICH error                                                          { printf("\n [Query 'WHICH' não se encontra bem construida]\n");
+                                                                                printf("\n [DICA: WHICH DATABASE;]\n\n");
+                                                                                printf(" [ENTER] para tentar de novo "); }
+
 
 createtb: CREATE TABLE IDENTIFIER OPENPAR NUMBER CLOSEPAR SEMICOLON LINE      { createTable($3,$5); }
-        | CREATE TABLE error LINE                                             { printf("\n [Query 'CREATE TABLE' não está bem construída!]\n");
+        | CREATE TABLE error LINE                                             { printf("\n [Query 'CREATE TABLE' não está bem construida]\n");
                                                                                 printf(" [DICA: CREATE TABLE table_name (numColumns);]\n\n"); 
                                                                                 printf(" [ENTER] para tentar de novo "); }
         ;
@@ -107,7 +120,7 @@ void createDatabase(char* dbname)
 {
     for (int i = 0; i < numDatabases; ++i) {
         if(strcmp(databases[i].name, dbname) == 0){
-            printf("\n [Erro: A base de dados '%s' já existe]\n", dbname);
+            printf("\n [Erro: A base de dados '%s' já existe]\n\n", dbname);
             printf(" [ENTER] para tentar de novo\n");
             return;
         }
@@ -115,10 +128,10 @@ void createDatabase(char* dbname)
     if (numDatabases < MAX_DATABASES) {
         strcpy(databases[numDatabases].name, dbname);
         numDatabases++;
-        printf("\n [Base de dados '%s' criada com sucesso!]\n", dbname);
+        printf("\n [Base de dados '%s' criada com sucesso!]\n\n", dbname);
         printf(" [ENTER] para prosseguir\n");
     } else {
-        printf("\n [Erro: Limite de bases de dados atingido]\n");
+        printf("\n [Erro: Limite de bases de dados atingido]\n\n");
         printf(" [ENTER] para tentar de novo\n");
     }
 }
@@ -162,7 +175,7 @@ void dropDatabase(char* dbname)
         }
     }
 }
-/* --------------------------- USE DATABASE ---------------------------- */
+/* --------------------------- USE DATABASE --------------------------- */
 void useDatabase(char* dbname)
 {
     int found = 0;
@@ -172,7 +185,7 @@ void useDatabase(char* dbname)
             activeDatabaseIndex = i;
             found = 1;
             printf("\n [Base de dados '%s' (index:[%i]) ativa]\n", dbname, i);
-            printf(" [A partir de agora, você pode criar tabelas nesta base de dados]\n");
+            printf(" [A partir de agora, você pode criar tabelas nesta base de dados]\n\n");
             printf(" [ENTER] para prosseguir\n");
             break;
         }
@@ -183,7 +196,19 @@ void useDatabase(char* dbname)
         printf(" [ENTER] para tentar de novo\n");
     }
 }
-/* --------------------------- CREATE TABLE ---------------------------- */
+/* -------------------------- WHICH DATABASE -------------------------- */
+void whichdb()
+{
+    if(activeDatabaseIndex == -1){
+        printf("\n [Até ao momento nenhuma base de dados ativa]\n");
+        printf(" [DICA: USE db_name; -> Para poder ativar uma]\n\n");
+        printf(" [ENTER] para tentar de novo ");
+    }else{
+        printf("\n [Base de dados '%s' ativa de momento]\n\n", databases[activeDatabaseIndex].name);
+        printf(" [ENTER] para prosseguir ");
+    }
+}
+/* --------------------------- CREATE TABLE --------------------------- */
 void createTable(char* tableName, int numColumns)
 {
     char columnName[256];
@@ -236,7 +261,7 @@ void createTable(char* tableName, int numColumns)
         printf("\n [Erro: A tabela não foi armazenada corretamente na base de dados '%s']\n", databases[activeDatabaseIndex].name);
     }
 }
-/* -------------------------- YYERROR ANALISE -------------------------- */
+/* -------------------------- YYERROR ANALISE ------------------------- */
 void yyerror(const char* s)
 { 
     const char* text = yyget_text();
