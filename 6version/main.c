@@ -72,8 +72,16 @@ void showDatabases()
 /* -------------------------- DROP DATABASES -------------------------- */
 void dropDatabase(char* dbname)
 {
+    if(strcmp(databases[activeDatabaseIndex].name, dbname) == 0){
+        printf("\n [Encontra-se com a BD '%s' ativa de momento]\n", dbname);
+        printf(" [DICA: Selecione outra BD para poder eliminar '%s']\n\n", dbname);
+        printf(" [ENTER] para tentar de novo\n");
+        return;
+    }
+
     if (numDatabases == 0) {
-        printf("\n [Não existem bases de dados guardadas, utilize o comando 'CREATE' para criar uma]\n");
+        printf("\n [Não existem bases de dados guardadas]\n");
+        printf("[DICA: Utilize o comando 'CREATE' para criar uma]\n\n");
         printf(" [ENTER] para tentar de novo\n");
     } else {
         int found = 0;
@@ -84,7 +92,7 @@ void dropDatabase(char* dbname)
                 }
                 numDatabases--;
                 found = 1;
-                printf("\n [A base de dados '%s' foi eliminada com sucesso!]\n", dbname);
+                printf("\n [A base de dados '%s' foi eliminada com sucesso!]\n\n", dbname);
                 printf(" [ENTER] para prosseguir\n");
                 break;
             }
