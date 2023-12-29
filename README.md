@@ -32,7 +32,7 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
 2. Clicar em **Download ZIP**.
 
 <p align="center">
-  <img src="https://github.com/AfonsoPaula/Sigma-compiler/blob/395c2b78bf8a99beda70fe981829098d919c3b2c/p2.png"/>
+  <img src="https://github.com/AfonsoPaula/Sigma-compiler/blob/147128c61bc52a86209375bd93663a13cb34dfb4/p2.png"/>
 </p>
 
 3. dd
