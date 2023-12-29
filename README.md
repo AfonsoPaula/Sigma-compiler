@@ -18,7 +18,7 @@ Exibe todas as bases de dados criadas ao utilizador.
 ### WHICH DATABASE;
 ### USE db_nome;
 ### CREATE TABLE table_name;
-
+adicionar imagens...
 
 
   
