@@ -8,9 +8,9 @@ O objetivo deste projeto é desenvolver um compilador capaz de interpretar um co
 - **DROP DATABASE db_nome;**
 
   Permite a remoção de uma base de dados, caso ela exista. Neste exemplo, a base de dados a ser removida é "db_nome".
-- .....
 - **SHOW DATABASES;**
-- ....
+  
+  Exibe todas as bases de dados criadas ao utilizador.
 - **WHICH DATABASE;**
 - **USE db_nome;**
 - **CREATE TABLE table_name;**
