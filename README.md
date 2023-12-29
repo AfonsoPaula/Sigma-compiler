@@ -29,7 +29,15 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
   <img src="https://github.com/AfonsoPaula/Sigma-compiler/blob/6591e67a3b799346fa9c0ef5da1cac5d06cc3d28/p1.png"/>
 </p>
 
-2. ddd
+2. Clicar em **Download ZIP**.
+
+<p align="center">
+  <img src="https://github.com/AfonsoPaula/Sigma-compiler/blob/395c2b78bf8a99beda70fe981829098d919c3b2c/p2.png"/>
+</p>
+
+3. dd
+
+   
    
 
 
