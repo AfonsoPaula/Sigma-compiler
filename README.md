@@ -22,7 +22,15 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
 ### CREATE TABLE table_name;
 - Cria uma nova tabela na base de dados atualmente em uso.
 
-## Instalação
+## Manual de instalação
+1. Acima da lista de ficheiros, clique em **<> Code**.
+
+<p align="center">
+  <img src="https://github.com/AfonsoPaula/Sigma-compiler/blob/1a473a6edc439fdb85e4fc6d27a1d24d8b4505ff/p1.png"/>
+</p>
+
+1. ddd
+   
 
 
   
