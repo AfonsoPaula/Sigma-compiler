@@ -3,7 +3,7 @@ O objetivo deste projeto é desenvolver um compilador capaz de interpretar um co
 
 ## Queries Reconhecidas pelo Compilador
 ### CREATE DATABASE db_nome;
-Permite a criação de uma nova base de dados. 
+- Permite a criação de uma nova base de dados. 
 
 <p align="center">
   <img src="https://github.com/AfonsoPaula/Sigma-compiler/blob/fd390d2dcc6ae6430f4f93ab0b0c1b106ee7facf/create.png"/>
