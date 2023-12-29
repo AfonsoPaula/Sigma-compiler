@@ -4,8 +4,10 @@ O objetivo deste projeto é desenvolver um compilador capaz de interpretar um co
   ## Queries Reconhecidas pelo Compilador
 - **CREATE DATABASE db_nome;**
 
-  Permite a criação de uma nova base de dados. No contexto deste exemplo, o nome atribuído à base de dados é 'db_nome'."
+  Permite a criação de uma nova base de dados. No contexto deste exemplo, o nome atribuído à base de dados é "db_nome".
 - **DROP DATABASE db_nome;**
+
+  Permite a remoção de uma base de dados, caso ela exista. Neste exemplo, a base de dados a ser removida é "db_nome".
 - .....
 - **SHOW DATABASES;**
 - ....
