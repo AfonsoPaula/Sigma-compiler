@@ -134,13 +134,14 @@ extern int yydebug;
     DATABASES = 264,
     USE = 265,
     TABLE = 266,
-    WHICH = 267,
-    SEMICOLON = 268,
-    COMMA = 269,
-    OPENPAR = 270,
-    CLOSEPAR = 271,
-    IDENTIFIER = 272,
-    NUMBER = 273
+    TABLES = 267,
+    WHICH = 268,
+    SEMICOLON = 269,
+    COMMA = 270,
+    OPENPAR = 271,
+    CLOSEPAR = 272,
+    IDENTIFIER = 273,
+    NUMBER = 274
   };
 #endif
 
@@ -151,7 +152,7 @@ union YYSTYPE
 #line 13 "parser.y"
  int num; char* id;
 
-#line 155 "parser.tab.c"
+#line 156 "parser.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -468,21 +469,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  26
+#define YYFINAL  27
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   53
+#define YYLAST   56
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  19
+#define YYNTOKENS  20
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  9
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  23
+#define YYNRULES  24
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  56
+#define YYNSTATES  59
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   273
+#define YYMAXUTOK   274
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -521,7 +522,7 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18
+      15,    16,    17,    18,    19
 };
 
 #if YYDEBUG
@@ -529,8 +530,8 @@ static const yytype_int8 yytranslate[] =
 static const yytype_int8 yyrline[] =
 {
        0,    26,    26,    27,    31,    34,    35,    36,    37,    38,
-      39,    42,    43,    46,    50,    51,    56,    57,    62,    63,
-      68,    69,    74,    75
+      39,    42,    43,    46,    50,    51,    52,    57,    58,    63,
+      64,    69,    70,    75,    76
 };
 #endif
 
@@ -540,10 +541,10 @@ static const yytype_int8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "EXTCMD", "LINE", "CREATE", "SHOW",
-  "DROP", "DATABASE", "DATABASES", "USE", "TABLE", "WHICH", "SEMICOLON",
-  "COMMA", "OPENPAR", "CLOSEPAR", "IDENTIFIER", "NUMBER", "$accept",
-  "query", "command", "createdb", "showdbs", "dropdb", "usedb", "whichdb",
-  "createtb", YY_NULLPTR
+  "DROP", "DATABASE", "DATABASES", "USE", "TABLE", "TABLES", "WHICH",
+  "SEMICOLON", "COMMA", "OPENPAR", "CLOSEPAR", "IDENTIFIER", "NUMBER",
+  "$accept", "query", "command", "createdb", "showSom", "dropdb", "usedb",
+  "whichdb", "createtb", YY_NULLPTR
 };
 #endif
 
@@ -553,7 +554,7 @@ static const char *const yytname[] =
 static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269,   270,   271,   272,   273
+     265,   266,   267,   268,   269,   270,   271,   272,   273,   274
 };
 # endif
 
@@ -571,12 +572,12 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      18,   -11,    11,     5,    19,    -1,    25,     3,    -9,   -11,
-     -11,   -11,   -11,   -11,   -11,     7,     0,     1,    27,    -8,
-      28,   -10,    30,    16,   -11,    22,   -11,    23,   -11,   -11,
-      33,    26,    34,    29,   -11,    36,   -11,    32,   -11,    37,
-      38,   -11,   -11,    39,   -11,    31,   -11,    42,   -11,   -11,
-     -11,    35,   -11,    40,    43,   -11
+      19,   -11,    20,    11,     6,    -1,    26,     3,   -10,   -11,
+     -11,   -11,   -11,   -11,   -11,     2,     0,     1,     7,    -9,
+      16,    29,    -3,    31,    22,   -11,    23,   -11,    24,   -11,
+     -11,    35,    27,    36,    28,   -11,    38,    39,   -11,    32,
+     -11,    41,    43,   -11,   -11,    44,   -11,    30,   -11,   -11,
+      46,   -11,   -11,   -11,    34,   -11,    40,    48,   -11
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -586,16 +587,16 @@ static const yytype_int8 yydefact[] =
 {
        0,     3,     0,     0,     0,     0,     0,     0,     0,     5,
        6,     7,     8,     9,    10,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,    21,     0,     1,     0,     2,    13,
-       0,     0,     0,     0,    15,     0,    17,     0,    19,     0,
-       0,     4,    12,     0,    23,     0,    14,     0,    18,    20,
-      11,     0,    16,     0,     0,    22
+       0,     0,     0,     0,     0,    22,     0,     1,     0,     2,
+      13,     0,     0,     0,     0,    16,     0,     0,    18,     0,
+      20,     0,     0,     4,    12,     0,    24,     0,    14,    15,
+       0,    19,    21,    11,     0,    17,     0,     0,    23
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -11,   -11,    41,   -11,   -11,   -11,   -11,   -11,   -11
+     -11,   -11,    49,   -11,   -11,   -11,   -11,   -11,   -11
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -609,50 +610,50 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      22,    30,    32,    26,    28,    35,    18,    37,     2,     3,
-       4,    29,    15,     5,    19,     6,    23,    31,    33,    16,
-      20,     1,    17,     2,     3,     4,    24,    21,     5,    39,
-       6,    34,    36,    25,    38,    40,    41,    42,    44,    43,
-      46,    48,    49,    50,    45,    47,    52,    55,    27,    51,
-       0,    53,     0,    54
+      23,    31,    33,    27,    29,    36,    30,    21,     2,     3,
+       4,    35,    18,     5,    22,    39,     6,    24,    32,    34,
+      19,    15,     1,    20,     2,     3,     4,    25,    16,     5,
+      37,    17,     6,    38,    26,    40,    41,    42,    43,    44,
+      46,    45,    48,    49,    47,    51,    50,    52,    53,    54,
+      55,    56,    58,     0,    57,     0,    28
 };
 
 static const yytype_int8 yycheck[] =
 {
-       1,     1,     1,     0,    13,    13,     1,    17,     5,     6,
-       7,     4,     1,    10,     9,    12,    17,    17,    17,     8,
-       1,     3,    11,     5,     6,     7,     1,     8,    10,    13,
-      12,     4,     4,     8,     4,    13,    13,     4,     4,    13,
-       4,     4,     4,     4,    15,    13,     4,     4,     7,    18,
-      -1,    16,    -1,    13
+       1,     1,     1,     0,    14,    14,     4,     1,     5,     6,
+       7,     4,     1,    10,     8,    18,    13,    18,    18,    18,
+       9,     1,     3,    12,     5,     6,     7,     1,     8,    10,
+      14,    11,    13,     4,     8,     4,    14,    14,    14,     4,
+       4,    14,     4,     4,    16,     4,    14,     4,     4,    19,
+       4,    17,     4,    -1,    14,    -1,     7
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     5,     6,     7,    10,    12,    20,    21,    22,
-      23,    24,    25,    26,    27,     1,     8,    11,     1,     9,
-       1,     8,     1,    17,     1,     8,     0,    21,    13,     4,
-       1,    17,     1,    17,     4,    13,     4,    17,     4,    13,
-      13,    13,     4,    13,     4,    15,     4,    13,     4,     4,
-       4,    18,     4,    16,    13,     4
+       0,     3,     5,     6,     7,    10,    13,    21,    22,    23,
+      24,    25,    26,    27,    28,     1,     8,    11,     1,     9,
+      12,     1,     8,     1,    18,     1,     8,     0,    22,    14,
+       4,     1,    18,     1,    18,     4,    14,    14,     4,    18,
+       4,    14,    14,    14,     4,    14,     4,    16,     4,     4,
+      14,     4,     4,     4,    19,     4,    17,    14,     4
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    19,    20,    20,    20,    21,    21,    21,    21,    21,
-      21,    22,    22,    22,    23,    23,    24,    24,    25,    25,
-      26,    26,    27,    27
+       0,    20,    21,    21,    21,    22,    22,    22,    22,    22,
+      22,    23,    23,    23,    24,    24,    24,    25,    25,    26,
+      26,    27,    27,    28,    28
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     2,     1,     3,     1,     1,     1,     1,     1,
-       1,     5,     4,     3,     4,     3,     5,     3,     4,     3,
-       4,     2,     8,     4
+       1,     5,     4,     3,     4,     4,     3,     5,     3,     4,
+       3,     4,     2,     8,     4
 };
 
 
@@ -1350,28 +1351,28 @@ yyreduce:
   case 2:
 #line 26 "parser.y"
                                                                               { ; }
-#line 1354 "parser.tab.c"
+#line 1355 "parser.tab.c"
     break;
 
   case 3:
 #line 27 "parser.y"
-                                                                              { printf("\n A sair do Sigma Compiler...\n");
+                                                                               { printf("\n A sair do Sigma Compiler...\n");
                                                                                 printf(" Até breve!\n");
                                                                                 printf("_________________________________________________________________________________________________\n\n\n\n");
                                                                                 exit(EXIT_SUCCESS); }
-#line 1363 "parser.tab.c"
+#line 1364 "parser.tab.c"
     break;
 
   case 4:
 #line 31 "parser.y"
                                                                               { ; }
-#line 1369 "parser.tab.c"
+#line 1370 "parser.tab.c"
     break;
 
   case 11:
 #line 42 "parser.y"
                                                                               { createDatabase((yyvsp[-2].id)); }
-#line 1375 "parser.tab.c"
+#line 1376 "parser.tab.c"
     break;
 
   case 12:
@@ -1379,88 +1380,94 @@ yyreduce:
                                                                               { printf("\n [Query 'CREATE DATABASE' não se encontra bem construida]\n");
                                                                                 printf(" [DICA: CREATE DATABASE db_nome;])\n\n"); 
                                                                                 printf(" [ENTER] para tentar de novo "); }
-#line 1383 "parser.tab.c"
+#line 1384 "parser.tab.c"
     break;
 
   case 13:
 #line 46 "parser.y"
                                                                               { printf(" [DICA: 'CREATE DATABASE' ou 'CREATE TABLE'?]\n\n");
                                                                                 printf(" [ENTER] para tentar de novo ");}
-#line 1390 "parser.tab.c"
+#line 1391 "parser.tab.c"
     break;
 
   case 14:
 #line 50 "parser.y"
                                                                               { showDatabases(); }
-#line 1396 "parser.tab.c"
+#line 1397 "parser.tab.c"
     break;
 
   case 15:
 #line 51 "parser.y"
-                                                                              { printf("\n [Query 'SHOW' não se encontra bem construida]\n");
-                                                                                printf(" [DICA: SHOW DATABASES;]\n\n"); 
-                                                                                printf(" [ENTER] para tentar de novo "); }
-#line 1404 "parser.tab.c"
+                                                                              { showTables(); }
+#line 1403 "parser.tab.c"
     break;
 
   case 16:
-#line 56 "parser.y"
-                                                                              { dropDatabase((yyvsp[-2].id)); }
-#line 1410 "parser.tab.c"
+#line 52 "parser.y"
+                                                                              { printf("\n [Query 'SHOW' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: 'SHOW DATABASES;' ou 'SHOW TABLES;']\n\n"); 
+                                                                                printf(" [ENTER] para tentar de novo "); }
+#line 1411 "parser.tab.c"
     break;
 
   case 17:
 #line 57 "parser.y"
-                                                                              { printf("\n [Query 'DROP' não se encontra bem construida]\n");
-                                                                                printf(" [DICA: DROP DATABASE db_nome;])\n\n"); 
-                                                                                printf(" [ENTER] para tentar de novo "); }
-#line 1418 "parser.tab.c"
+                                                                              { dropDatabase((yyvsp[-2].id)); }
+#line 1417 "parser.tab.c"
     break;
 
   case 18:
-#line 62 "parser.y"
-                                                                              { useDatabase((yyvsp[-2].id)); }
-#line 1424 "parser.tab.c"
+#line 58 "parser.y"
+                                                                              { printf("\n [Query 'DROP' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: DROP DATABASE db_nome;])\n\n"); 
+                                                                                printf(" [ENTER] para tentar de novo "); }
+#line 1425 "parser.tab.c"
     break;
 
   case 19:
 #line 63 "parser.y"
-                                                                              { printf("\n [Query 'USE' não se encontra bem construida]\n");
-                                                                                printf(" [DICA: USE db_nome;])\n\n"); 
-                                                                                printf(" [ENTER] para tentar de novo "); }
-#line 1432 "parser.tab.c"
+                                                                              { useDatabase((yyvsp[-2].id)); }
+#line 1431 "parser.tab.c"
     break;
 
   case 20:
-#line 68 "parser.y"
-                                                                              { whichdb(); }
-#line 1438 "parser.tab.c"
+#line 64 "parser.y"
+                                                                              { printf("\n [Query 'USE' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: USE db_nome;])\n\n"); 
+                                                                                printf(" [ENTER] para tentar de novo "); }
+#line 1439 "parser.tab.c"
     break;
 
   case 21:
 #line 69 "parser.y"
-                                                                              { printf("\n [Query 'WHICH' não se encontra bem construida]\n");
-                                                                                printf("\n [DICA: WHICH DATABASE;]\n\n");
-                                                                                printf(" [ENTER] para tentar de novo "); }
-#line 1446 "parser.tab.c"
+                                                                              { whichdb(); }
+#line 1445 "parser.tab.c"
     break;
 
   case 22:
-#line 74 "parser.y"
-                                                                              { createTable((yyvsp[-5].id),(yyvsp[-3].num)); }
-#line 1452 "parser.tab.c"
+#line 70 "parser.y"
+                                                                              { printf("\n [Query 'WHICH' não se encontra bem construida]\n");
+                                                                                printf("\n [DICA: WHICH DATABASE;]\n\n");
+                                                                                printf(" [ENTER] para tentar de novo "); }
+#line 1453 "parser.tab.c"
     break;
 
   case 23:
 #line 75 "parser.y"
+                                                                              { createTable((yyvsp[-5].id),(yyvsp[-3].num)); }
+#line 1459 "parser.tab.c"
+    break;
+
+  case 24:
+#line 76 "parser.y"
                                                                               { printf("\n [Query 'CREATE TABLE' não está bem construida]\n");
                                                                                 printf(" [DICA: CREATE TABLE table_name (numColumns);]\n\n"); 
                                                                                 printf(" [ENTER] para tentar de novo "); }
-#line 1460 "parser.tab.c"
+#line 1467 "parser.tab.c"
     break;
 
 
-#line 1464 "parser.tab.c"
+#line 1471 "parser.tab.c"
 
       default: break;
     }
@@ -1692,7 +1699,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 79 "parser.y"
+#line 80 "parser.y"
 
 
 /* -------------------------- YYERROR ANALISE ------------------------- */

@@ -58,13 +58,14 @@ extern int yydebug;
     DATABASES = 264,
     USE = 265,
     TABLE = 266,
-    WHICH = 267,
-    SEMICOLON = 268,
-    COMMA = 269,
-    OPENPAR = 270,
-    CLOSEPAR = 271,
-    IDENTIFIER = 272,
-    NUMBER = 273
+    TABLES = 267,
+    WHICH = 268,
+    SEMICOLON = 269,
+    COMMA = 270,
+    OPENPAR = 271,
+    CLOSEPAR = 272,
+    IDENTIFIER = 273,
+    NUMBER = 274
   };
 #endif
 
@@ -75,7 +76,7 @@ union YYSTYPE
 #line 13 "parser.y"
  int num; char* id;
 
-#line 79 "parser.tab.h"
+#line 80 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
