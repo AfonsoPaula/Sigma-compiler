@@ -3,11 +3,11 @@ O objetivo deste projeto é desenvolver um compilador capaz de interpretar um co
 
 ## Funcionalidades
 - **CREATE DATABASE db_nome;**
-* **DROP DATABASE db_nome;**
-+ **SHOW DATABASES;**
-+ **WHICH DATABASE;**
-* **USE db_nome;**
-+ **CREATE TABLE table_name;**
+- **DROP DATABASE db_nome;**
+- **SHOW DATABASES;**
+- **WHICH DATABASE;**
+- **USE db_nome;**
+- **CREATE TABLE table_name;**
 
 
 
