@@ -14,7 +14,7 @@ extern char *yyget_text(void);
 %start query
 
 %token EXTCMD LINE
-%token CREATE SHOW DROP DATABASE DATABASES USE TABLE TABLES WHICH
+%token CREATE SHOW DROP DATABASE DATABASES USE TABLE TABLES WHICH INSERT VALUES SELECT
 %token SEMICOLON COMMA OPENPAR CLOSEPAR
 
 %token <id> IDENTIFIER
@@ -31,33 +31,15 @@ query: command SEMICOLON                                                      { 
      | query command SEMICOLON                                                { ; }
      ;
 
-command: createdb 
-       | dropdb
-       | createtb
-       | show
+command: show 
        | use
        | which
+       | createdb
+       | dropdb
+       | createtb
+       | insertvals
+       | selecttb
        ;
-
-createdb: CREATE DATABASE IDENTIFIER SEMICOLON LINE                           { createDatabase($3); }
-        | CREATE DATABASE error LINE                                          { printf("\n [Query 'CREATE DATABASE' não se encontra bem construida]\n");
-                                                                                printf(" [DICA: CREATE DATABASE db_nome;])\n\n"); 
-                                                                                printf(" [ENTER] para tentar de novo \n"); }
-        | CREATE error LINE                                                   { printf(" [DICA: 'CREATE DATABASE db_name;' ou 'CREATE TABLE tb_name;'?]\n\n");
-                                                                                printf(" [ENTER] para tentar de novo \n");}
-        ;
-
-dropdb: DROP DATABASE IDENTIFIER SEMICOLON LINE                               { dropDatabase($3); }
-      | DROP error LINE                                                       { printf("\n [Query 'DROP' não se encontra bem construida]\n");
-                                                                                printf(" [DICA: DROP DATABASE db_nome;])\n\n"); 
-                                                                                printf(" [ENTER] para tentar de novo \n"); }
-      ;
-
-createtb: CREATE TABLE IDENTIFIER OPENPAR NUMBER CLOSEPAR SEMICOLON LINE      { createTable($3,$5); }
-        | CREATE TABLE error LINE                                             { printf("\n [Query 'CREATE TABLE' não está bem construida]\n");
-                                                                                printf(" [DICA: CREATE TABLE table_name (numColumns);]\n\n"); 
-                                                                                printf(" [ENTER] para tentar de novo \n"); }
-        ;
 
 show: SHOW DATABASES SEMICOLON LINE                                           { showDatabases(); }
     | SHOW TABLES SEMICOLON LINE                                              { showTables(); }
@@ -79,6 +61,38 @@ which: WHICH DATABASE SEMICOLON LINE                                          { 
                                                                                 printf(" [DICA: 'WHICH DATABASE;' ou 'WHICH TABLE;']\n\n");
                                                                                 printf(" [ENTER] para tentar de novo \n"); }
      ;
+
+createdb: CREATE DATABASE IDENTIFIER SEMICOLON LINE                           { createDatabase($3); }
+        | CREATE DATABASE error LINE                                          { printf("\n [Query 'CREATE DATABASE' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: CREATE DATABASE db_nome;])\n\n"); 
+                                                                                printf(" [ENTER] para tentar de novo \n"); }
+        | CREATE error LINE                                                   { printf(" [DICA: 'CREATE DATABASE db_name;' ou 'CREATE TABLE tb_name;'?]\n\n");
+                                                                                printf(" [ENTER] para tentar de novo \n");}
+        ;
+
+dropdb: DROP DATABASE IDENTIFIER SEMICOLON LINE                               { dropDatabase($3); }
+      | DROP error LINE                                                       { printf("\n [Query 'DROP' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: DROP DATABASE db_nome;])\n\n"); 
+                                                                                printf(" [ENTER] para tentar de novo \n"); }
+      ;
+
+createtb: CREATE TABLE IDENTIFIER OPENPAR NUMBER CLOSEPAR SEMICOLON LINE      { createTable($3,$5); }
+        | CREATE TABLE error LINE                                             { printf("\n [Query 'CREATE TABLE' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: CREATE TABLE table_name (numColumns);]\n\n"); 
+                                                                                printf(" [ENTER] para tentar de novo \n"); }
+        ;
+
+insertvals: INSERT IDENTIFIER VALUES SEMICOLON LINE                           { insertIntoTable($2); }
+          | INSERT error LINE                                                 { printf("\n [Query 'INSERT INTO' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: INSERT INTO tableName VALUES;]\n\n");
+                                                                                printf(" [ENTER] para tentar de novo \n");}
+          ;
+
+selecttb: SELECT IDENTIFIER SEMICOLON LINE                                    { selectTable($2); }
+        | SELECT error LINE                                                   { printf("\n [Query 'SELECT' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: SELECT tableName;]\n\n");
+                                                                                printf(" [ENTER] para tentar de novo \n");}
+        ;
 
 %%
 
