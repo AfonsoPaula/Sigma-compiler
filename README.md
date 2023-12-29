@@ -12,13 +12,15 @@ O objetivo deste projeto é desenvolver um compilador capaz de interpretar um co
 No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é "mysql".
 
 ### DROP DATABASE db_nome;
-Permite a remoção de uma base de dados, caso ela exista. Neste exemplo, a base de dados a ser removida é "db_nome".
+- Permite a remoção de uma base de dados, caso ela exista. Neste exemplo, a base de dados a ser removida é "db_nome".
 ### SHOW DATABASES;
-Exibe todas as bases de dados criadas ao utilizador.
+- Exibe todas as bases de dados criadas ao utilizador.
 ### WHICH DATABASE;
+- Exibe ao utilizador a base de dados que está a ser utilizada.
 ### USE db_nome;
+- Permite definir a base de dados que será utilizada para operações posteriores, como a criação de tabelas, por exemplo.
 ### CREATE TABLE table_name;
-adicionar imagens...
+- Cria uma nova tabela na base de dados atualmente em uso.
 
 
   
