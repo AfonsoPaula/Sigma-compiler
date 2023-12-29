@@ -23,13 +23,13 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
 - Cria uma nova tabela na base de dados atualmente em uso.
 
 ## Manual de instalação
-1. Na parte superior da lista de ficheiros, clique em **<> Code**. 
+1. Na parte superior da lista de ficheiros, clique em **"<> Code"**. 
 
 <p align="center">
   <img src="https://github.com/AfonsoPaula/Sigma-compiler/blob/6591e67a3b799346fa9c0ef5da1cac5d06cc3d28/p1.png"/>
 </p>
 
-2. Clicar em **Download ZIP**.
+2. Clicar em **"Download ZIP"**.
 
 <p align="center">
   <img src="https://github.com/AfonsoPaula/Sigma-compiler/blob/147128c61bc52a86209375bd93663a13cb34dfb4/p2.png"/>
