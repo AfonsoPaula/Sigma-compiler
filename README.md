@@ -9,7 +9,7 @@ O objetivo deste projeto é desenvolver um compilador capaz de interpretar um co
   <img src="https://github.com/AfonsoPaula/Sigma-compiler/blob/fd390d2dcc6ae6430f4f93ab0b0c1b106ee7facf/create.png"/>
 </p>
 
-No contexto deste exemplo, o nome atribuído à base de dados é "mysql".
+No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é "mysql".
 
 ### DROP DATABASE db_nome;
 Permite a remoção de uma base de dados, caso ela exista. Neste exemplo, a base de dados a ser removida é "db_nome".
