@@ -1,6 +1,7 @@
 # Sigma-Compiler
 O objetivo deste projeto é desenvolver um compilador capaz de interpretar um conjunto de queries fornecidas pelo utilizador, permitindo a manipulação de bases de dados através da aplicação do Lexer (Analisador Léxico) e do Parser (Analisador Sintático). 
-O compilador oferece aos utilizadores uma maneira mais acessível, eficiente e controlada de interagir com as bases de dados, simplificando tarefas e melhorando a produtividade.
+
+O compilador oferece aos utilizadores uma maneira mais **acessível**, **eficiente** e **controlada** de interagir com as bases de dados, simplificando tarefas e melhorando a produtividade.
 
 ## Queries Reconhecidas pelo Compilador
 falta colocar imagens
