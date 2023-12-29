@@ -26,7 +26,7 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
 1. Na parte superior da lista de ficheiros, clique em **<> Code**. 
 
 <p align="center">
-  <img src="https://github.com/AfonsoPaula/Sigma-compiler/blob/1a473a6edc439fdb85e4fc6d27a1d24d8b4505ff/p1.png"/>
+  <img src="https://github.com/AfonsoPaula/Sigma-compiler/blob/296374f8dc73bacc47af8d8020f700de4d7ad3c3/p1.png"/>
 </p>
 
 2. ddd
