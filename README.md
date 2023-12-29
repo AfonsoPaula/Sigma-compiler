@@ -5,7 +5,7 @@ O objetivo deste projeto é desenvolver um compilador capaz de interpretar um co
 - **CREATE DATABASE db_nome;**
 * **DROP DATABASE db_nome;**
 + **SHOW DATABASES;**
-- **WHICH DATABASE;**
++ **WHICH DATABASE;**
 * **CREATE TABLE table_name;**
 + **USE db_nome;**
 
