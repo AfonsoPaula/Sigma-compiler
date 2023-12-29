@@ -2,7 +2,7 @@
 O objetivo deste projeto é desenvolver um compilador capaz de interpretar um conjunto de queries fornecidas pelo utilizador, permitindo a manipulação de bases de dados através da aplicação do Lexer(Analisador Léxico) e do Parser(Analisador Sintático).
 
   ## Queries Reconhecidas pelo Compilador
-- **CREATE DATABASE db_nome;**
+  ### CREATE DATABASE db_nome;
 
   Permite a criação de uma nova base de dados. No contexto deste exemplo, o nome atribuído à base de dados é "db_nome".
 - **DROP DATABASE db_nome;**
