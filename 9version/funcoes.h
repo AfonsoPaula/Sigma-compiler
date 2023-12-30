@@ -11,9 +11,9 @@ void whichDatabase();
 // Tables Functions
 void createTable(char* tableName, int numColumns);
 void showTables();
-void useTable(char* tableName);
-void whichTable();
 void insertIntoTable(char* tableName);
 void selectTable(char* tableName);
+void deleteRowFromTable(char* tableName, int rowNum);
+void deleteColFromTable(char* tableName, char* columnName);
 
 #endif // FUNCOES_H

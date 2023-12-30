@@ -22,6 +22,10 @@
 "INSERT INTO"           { return INSERT;     }
 "VALUES"                { return VALUES;     }
 "SELECT"                { return SELECT;     }
+"DELETE"                { return DELETE;     }
+"FROM"                  { return FROM;       }
+"ROW"                   { return ROW;        }
+"COL"                   { return COL;        }
 
 ";"                     { return SEMICOLON;  }
 ","                     { return COMMA;      }
