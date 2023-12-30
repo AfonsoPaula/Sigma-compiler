@@ -15,5 +15,7 @@ void insertIntoTable(char* tableName);
 void selectTable(char* tableName);
 void deleteRowFromTable(char* tableName, int rowNum);
 void deleteColFromTable(char* tableName, char* columnName);
+void updateRow(char* tableName, int rowNum);
+void dropTable(char* tableName);
 
 #endif // FUNCOES_H

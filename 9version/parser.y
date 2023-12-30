@@ -14,7 +14,7 @@ extern char *yyget_text(void);
 %start query
 
 %token EXTCMD LINE
-%token CREATE SHOW DROP DATABASE DATABASES USE TABLE TABLES WHICH INSERT VALUES SELECT DELETE FROM ROW COL
+%token CREATE SHOW DROP DATABASE DATABASES USE TABLE TABLES WHICH INSERT VALUES SELECT DELETE FROM ROW COL UPDATE
 %token SEMICOLON COMMA OPENPAR CLOSEPAR
 
 %token <id> IDENTIFIER
@@ -35,11 +35,12 @@ command: show
        | usedb
        | whichdb
        | createdb
-       | dropdb
+       | drop
        | createtb
        | insertvals
        | selecttb
        | delete
+       | rowupdate
        ;
 
 show: SHOW DATABASES SEMICOLON LINE                                           { showDatabases(); }
@@ -70,11 +71,12 @@ createdb: CREATE DATABASE IDENTIFIER SEMICOLON LINE                           { 
                                                                                 printf(" [ENTER] para tentar de novo \n");}
         ;
 
-dropdb: DROP DATABASE IDENTIFIER SEMICOLON LINE                               { dropDatabase($3); }
-      | DROP error LINE                                                       { printf("\n [Query 'DROP' não se encontra bem construida]\n");
-                                                                                printf(" [DICA: DROP DATABASE db_nome;])\n\n"); 
+drop: DROP DATABASE IDENTIFIER SEMICOLON LINE                                 { dropDatabase($3); }
+    | DROP TABLE IDENTIFIER SEMICOLON LINE                                    { dropTable($3); }
+    | DROP error LINE                                                         { printf("\n [Query 'DROP' não se encontra bem construida]\n");
+                                                                                printf(" [DICA: 'DROP DATABASE db_name;' ou 'DROP TABLE tableName'])\n\n"); 
                                                                                 printf(" [ENTER] para tentar de novo \n"); }
-      ;
+    ;
 
 createtb: CREATE TABLE IDENTIFIER OPENPAR NUMBER CLOSEPAR SEMICOLON LINE      { createTable($3,$5); }
         | CREATE TABLE error LINE                                             { printf("\n [Query 'CREATE TABLE' não se encontra bem construida]\n");
@@ -104,7 +106,14 @@ delete: DELETE ROW NUMBER FROM IDENTIFIER SEMICOLON LINE                      { 
                                                                                 printf(" [ENTER] para tentar de novo \n");}
       | DELETE error LINE                                                     { printf("\n [Query DELETE incompleta]\n");
                                                                                 printf(" [DICA: 'DELETE ROW' ou 'DELETE COL'?]\n\n");
-                                                                                printf(" [ENTER] para tentar de novo \n");}  
+                                                                                printf(" [ENTER] para tentar de novo \n");}
+      ;
+
+rowupdate: UPDATE ROW NUMBER FROM IDENTIFIER SEMICOLON LINE                   { updateRow($5, $3); }
+         | UPDATE error LINE                                                  { printf("\n [Query UPDATE incompleta]\n");
+                                                                                printf(" [DICA: UPDATE ROW numRow FROM tableName;]\n\n");
+                                                                                printf(" [ENTER] para tentar de novo \n");}
+         ;
 
 %%
 

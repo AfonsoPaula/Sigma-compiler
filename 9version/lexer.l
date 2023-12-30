@@ -26,6 +26,7 @@
 "FROM"                  { return FROM;       }
 "ROW"                   { return ROW;        }
 "COL"                   { return COL;        }
+"UPDATE"                { return UPDATE;     }
 
 ";"                     { return SEMICOLON;  }
 ","                     { return COMMA;      }
