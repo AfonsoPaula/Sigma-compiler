@@ -36,7 +36,7 @@ $sudo apt-get install bison
 $sudo apt install make
 ```
 
-## Manual de Utilização
+## Guia de Utilização
 1. Na parte superior da lista de ficheiros, clique em **"<> Code"**. 
 
 <p align="center">
