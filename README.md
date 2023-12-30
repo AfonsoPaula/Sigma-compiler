@@ -37,7 +37,9 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
   <img src="https://github.com/AfonsoPaula/Sigma-compiler/blob/147128c61bc52a86209375bd93663a13cb34dfb4/p2.png"/>
 </p>
 
-3. dd
+3. Utilizando o terminal do **Ubuntu**, navegue do diretório atual até ao arquivo **ZIP**.
+
+4. 
 
    
    
