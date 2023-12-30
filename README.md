@@ -54,7 +54,7 @@ $sudo apt install make
 4. Digitar o seguinte comando no terminal:
 
 ```
-make
+$make
 ```
 
 O comando **"make"** irá fazer a compilação dos ficheiros necessários para a existência do compilador.
@@ -62,7 +62,7 @@ O comando **"make"** irá fazer a compilação dos ficheiros necessários para a
 5. Digitar o seguinte comando no terminal:
 
 ```
-make run
+$make run
 ```
 
 O comando **"make run"** irá executar o compilador e permitir a utilização do mesmo.
@@ -70,7 +70,7 @@ O comando **"make run"** irá executar o compilador e permitir a utilização do
 6. Por último, digitar o seguinte comando no terminal:
 
 ```
-make clear
+$make clear
 ```
 
 O comando **"make clear"** permitirá eliminar todos os ficheiros temporários que foram criados durante a utilização do compilador.
