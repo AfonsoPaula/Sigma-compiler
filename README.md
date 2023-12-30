@@ -24,7 +24,7 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
 ### CREATE TABLE table_name;
 - Cria uma nova tabela na base de dados atualmente em uso.
 ## Requisitos e Dependências
-- **[Ubuntu (Terminal);](https://ubuntu.com/download/desktop)**
+- **[Ubuntu](https://ubuntu.com/download/desktop)(Terminal);**
 - **Instalação do [bison](https://ccm.net/computing/linux/1711-how-to-install-flex-and-bison-under-ubuntu/) no terminal;**
 
 ```
