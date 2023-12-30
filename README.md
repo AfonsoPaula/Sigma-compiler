@@ -23,6 +23,8 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
 - Permite definir a base de dados que será utilizada para operações posteriores, como a criação de tabelas, por exemplo.
 ### CREATE TABLE table_name;
 - Cria uma nova tabela na base de dados atualmente em uso.
+## Requisitos
+
 
 ## Manual de Utilização
 1. Na parte superior da lista de ficheiros, clique em **"<> Code"**. 
