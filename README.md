@@ -45,7 +45,7 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
 make
 ```
 
-O comando **make** irá fazer a compilação dos ficheiros necessários para a existência do compilador.
+O comando **"make"** irá fazer a compilação dos ficheiros necessários para a existência do compilador.
 
 5. Digitar o seguinte comando no terminal:
 
@@ -53,15 +53,15 @@ O comando **make** irá fazer a compilação dos ficheiros necessários para a e
 make run
 ```
 
-O comando **make run** irá executar o compilador e permitir a utilização do mesmo.
+O comando **"make run"** irá executar o compilador e permitir a utilização do mesmo.
 
-6. Digitar o seguinte comando no terminal:
+6. Por último, digitar o seguinte comando no terminal:
 
 ```
 make clear
 ```
 
-O comando **make clear** permitirá eliminar todos os ficheiros temporários que foram criados durante a utilização do compilador.
+O comando **"make clear"** permitirá eliminar todos os ficheiros temporários que foram criados durante a utilização do compilador.
    
    
 
