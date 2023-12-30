@@ -39,7 +39,11 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
 
 3. Utilizando o terminal do **Ubuntu**, navegue do diretório atual até ao arquivo **ZIP**.
 
-4. 
+4. Digitar o seguinte comando no terminal:
+
+```
+make
+```
 
    
    
