@@ -25,12 +25,12 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
 - Cria uma nova tabela na base de dados atualmente em uso.
 ## Requisitos e Dependências
 - **[Ubuntu (Terminal);](https://ubuntu.com/download/desktop)**
-- **Instalação do bison no terminal;**
+- **Instalação do [bison](https://ccm.net/computing/linux/1711-how-to-install-flex-and-bison-under-ubuntu/) no terminal;**
 
 ```
 $sudo apt-get install bison
 ```
-- **Instalação do make no terminal.**
+- **Instalação do [make](https://pt.linux-console.net/?p=15359) no terminal.**
 
 ```
 $sudo apt install make
