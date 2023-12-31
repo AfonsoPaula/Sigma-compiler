@@ -36,7 +36,7 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
 ### DELETE COL colName FROM tableName;
 - Elimina uma coluna específica de uma tabela.
 ### UPDATE ROW numRow FROM tableName;
--
+- 
 ## Requisitos e Dependências
 - **[Ubuntu](https://ubuntu.com/download/desktop) (Terminal);**
 - **Instalação do [bison](https://ccm.net/computing/linux/1711-how-to-install-flex-and-bison-under-ubuntu/) no terminal;**
