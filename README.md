@@ -13,16 +13,30 @@ falta colocar imagens
 </p>
 
 No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é "mysql".
+### CREATE TABLE table_name (numColumns);
+- oo
 ### DROP DATABASE db_nome;
 - Permite a remoção de uma base de dados, caso ela exista. Neste exemplo, a base de dados a ser removida é "db_nome".
+### DROP TABLE tableName;
+- ooo
 ### SHOW DATABASES;
 - Exibe todas as bases de dados criadas ao utilizador.
+### SHOW TABLES;
+- Exibe todas as tabelas criadas ao utilizador.
 ### WHICH DATABASE;
 - Exibe ao utilizador a base de dados que está a ser utilizada.
-### USE db_nome;
+### USE DATABASE db_nome;
 - Permite definir a base de dados que será utilizada para operações posteriores, como a criação de tabelas, por exemplo.
-### CREATE TABLE table_name;
-- Cria uma nova tabela na base de dados atualmente em uso.
+### INSERT INTO tableName VALUES;
+-
+### SELECT tableName;
+-
+### DELETE ROW numRow FROM tableName;
+-
+### DELETE COL colName FROM tableName;
+-
+### UPDATE ROW numRow FROM tableName;
+-
 ## Requisitos e Dependências
 - **[Ubuntu](https://ubuntu.com/download/desktop) (Terminal);**
 - **Instalação do [bison](https://ccm.net/computing/linux/1711-how-to-install-flex-and-bison-under-ubuntu/) no terminal;**
