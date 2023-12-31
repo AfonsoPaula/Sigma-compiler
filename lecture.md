@@ -26,12 +26,12 @@ Este projeto encaixa-se no contexto académico da disciplina, onde o desafio pas
 ### Main
 - O ficheiro **'main.c'** é o ponto de entrada do programa.
   - Contém a função 'main' que inicia a execução do Sigma Compiler.
-  - Gere a interação do utilizador e possui as funções relecantes.
+  - Gere a interação do utilizador e possui as funções relevantes.
 
 ### Makefile
 - O ficheiro **'Makefile'** é responsável por compilar e construir o projeto.
   - Define regras para compilação, como 'all', 'run' e 'clean'.
-  - Facilta a compilação utilizando o comando 'make'.
+  - Facilita a compilação utilizando o comando 'make'.
  
 ### Testes
 - A diretoria 'tests' contém casos de teste para verificar a corretude do compilador.
