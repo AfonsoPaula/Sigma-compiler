@@ -89,7 +89,7 @@ Para utilizar o Sigma Compiler, siga estes passos:
 git clone https://github.com/AfonsoPaula/Sigma-compiler.git
 ```
 
-2. Navegue até ao diretório do projeto:
+2. Navegue até à diretoria do projeto:
 
 ```bash
 cd Sigma-compiler
