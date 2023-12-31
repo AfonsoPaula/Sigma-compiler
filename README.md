@@ -18,7 +18,7 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
 ### DROP DATABASE db_nome;
 - Permite a remoção de uma base de dados, caso ela exista. Neste exemplo, a base de dados a ser removida é "db_nome".
 ### DROP TABLE tableName;
-- ooo
+- Permite a remoção de uma tabela, caso esta exista, correspondente à base de dados que está a ser utilizada.
 ### SHOW DATABASES;
 - Exibe todas as bases de dados criadas ao utilizador.
 ### SHOW TABLES;
@@ -28,13 +28,13 @@ No contexto deste exemplo, o nome atribuído pelo utilizador à base de dados é
 ### USE DATABASE db_nome;
 - Permite definir a base de dados que será utilizada para operações posteriores, como a criação de tabelas, por exemplo.
 ### INSERT INTO tableName VALUES;
--
+- Permite inserir dados numa tabela específica da base de dados em utilização.
 ### SELECT tableName;
--
+- 
 ### DELETE ROW numRow FROM tableName;
--
+- Elimina uma linha específica de uma tabela.
 ### DELETE COL colName FROM tableName;
--
+- Elimina uma coluna específica de uma tabela.
 ### UPDATE ROW numRow FROM tableName;
 -
 ## Requisitos e Dependências
