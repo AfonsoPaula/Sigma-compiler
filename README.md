@@ -4,7 +4,6 @@ O objetivo deste projeto é desenvolver um compilador capaz de interpretar um co
 O compilador oferece aos utilizadores uma maneira mais **acessível**, **eficiente** e **controlada** de interagir e efetuar operações com as bases de dados, simplificando tarefas e melhorando a produtividade.
 
 ## Queries Reconhecidas pelo Compilador
-falta colocar imagens
 ### CREATE DATABASE db_nome;
 - Permite a criação de uma nova base de dados. 
 
