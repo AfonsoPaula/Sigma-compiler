@@ -12,31 +12,74 @@ Este projeto encaixa-se no contexto académico da disciplina, onde o desafio pas
 
 ## Estrutura do Projeto
 
-### Árvore Abstrata (Ast)
+**Árvore Abstrata (Ast)** :
 - A diretória 'ast' contém os ficheiros relacionados com a implementação da Árvore Abstrata:
   - **'ast.h'**: Declarações de estruturas e funções relacionadas à Árvore Abstrata.
   - **'ast.c'**: Implementação das funções para manipulação da Árvore Abstrata.
- 
-### Lexer
+    
+**Lexer** :
 - **'lexer.l**: Especificação do analisador léxico usando flex.
-
-### Parser
+  
+**Parser** :
 - **'parser.y'**: Especificação do analisador sintático usando bison.
-
-### Main
+  
+**Main** :
 - O ficheiro **'main.c'** é o ponto de entrada do programa.
   - Contém a função 'main' que inicia a execução do Sigma Compiler.
   - Gere a interação do utilizador e possui as funções relevantes.
-
-### Makefile
+    
+**Makefile** :
 - O ficheiro **'Makefile'** é responsável por compilar e construir o projeto.
   - Define regras para compilação, como 'all', 'run' e 'clean'.
   - Facilita a compilação utilizando o comando 'make'.
- 
-### Testes
+    
+**Testes** :
 - A diretoria 'tests' contém casos de teste para verificar a corretude do compilador.
 
-## Utilização
+## Requisitos e Dependências
+
+Para compilar e executar este projeto, é necessário ter algumas ferramentas instaladas no sistema. Aqui estão as instruções para instalação no Linux e Windows:
+
+### 1. Flex (Fast Lexical Analyzer Generator)
+
+**Linux**:
+
+```bash
+sudo apt-get install flex
+```
+
+**Windows**:
+
+Faça o download da ferramenta Flex [aqui](https://gnuwin32.sourceforge.net/packages/flex.htm).
+
+### 2. Bison (GNU Parser Generator)
+
+**Linux**:
+
+```bash
+sudo apt-get install bison
+```
+
+**Windows**:
+
+Faça o download da ferramenta Bison [aqui](https://www.gnu.org/software/bison/).
+
+### 3. Make (GNU Make)
+
+**Linux**:
+
+```bash
+sudo apt-get install make
+```
+
+**Windows**:
+
+Faça o download da ferramenta Make [aqui](https://gnuwin32.sourceforge.net/packages/make.htm).
+
+
+Certifique-se de ajustar o PATH em ambos os sistemas operativos para incluir as diretorias onde estão instalados o Flex, Bison e o Make. Deste modo, permitirá a execução destas ferramentas a partir de qualquer diretoria do sistema.
+
+## Guia de Utilização
 
 Para utilizar o Sigma Compiler, siga estes passos:
 
