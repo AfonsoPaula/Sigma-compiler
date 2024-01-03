@@ -1,0 +1,23 @@
+2. Visualizar uma tabela que não existe na BD ativa ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName1 (3);
+
+ > INSERT INTO tableName1 VALUES;
+
+ > INSERT INTO tableName1 VALUES;
+
+ > INSERT INTO tableName1 VALUES;
+
+ > SELECT tableName2;
+
+output:
+
+ [Erro: A tabela 'tableName2' não foi encontrada na base de dados 'db_name']
+
+ [ENTER] para tentar de novo

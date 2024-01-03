@@ -1,0 +1,12 @@
+3. Visualizar uma tabela sem ter uma BD ativa ✅
+
+input:
+
+ > SELECT tableName;
+
+output:
+
+ [Erro: Nenhuma base de dados ativa]
+ [DICA: Use 'USE db_name;' para ativar uma base de dados]
+
+ [ENTER] para tentar de novo

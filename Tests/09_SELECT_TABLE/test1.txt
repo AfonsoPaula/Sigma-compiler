@@ -1,0 +1,31 @@
+1. Visualizar uma tabela de uma dada BD ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName (3);
+
+ > INSERT INTO tableName VALUES;
+
+ > INSERT INTO tableName VALUES;
+
+ > INSERT INTO tableName VALUES;
+
+ > SELECT tableName;
+
+output:
+
+ Tabela: tableName
+
++---------------------+---------------------+---------------------+---------------------+
+| numRow              | id                  | name                | age                 |
++---------------------+---------------------+---------------------+---------------------+
+| 1                   | 1                   | Ana                 | 28                  |
+| 2                   | 2                   | Pedro               | 34                  |
+| 3                   | 3                   | Maria               | 23                  |
++---------------------+---------------------+---------------------+---------------------+
+
+ [ENTER] para prosseguir

@@ -275,7 +275,6 @@ void insertIntoTable(char* tableName)
     // Verifica se há espaço para mais uma linha
     if (databases[activeDatabaseIndex].tables[tableIndex].numRows >= MAX_ROWS) {
         printf("\n [Erro: Limite de linhas atingido para a tabela '%s']\n\n", tableName);
-        // printf(" [ENTER] para tentar de novo\n");
         return;
     }
 
@@ -289,7 +288,6 @@ void insertIntoTable(char* tableName)
     databases[activeDatabaseIndex].tables[tableIndex].numRows++;
 
     printf("\n\n [Valores inseridos com sucesso na linha %d da tabela '%s']\n\n", databases[activeDatabaseIndex].tables[tableIndex].numRows, tableName);
-    // printf(" [ENTER] para prosseguir\n");
     return;
 }
 /* -------------------------- SELECT TABLE ---------------------------- */
