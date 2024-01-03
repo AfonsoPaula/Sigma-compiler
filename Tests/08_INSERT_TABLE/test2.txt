@@ -1,0 +1,12 @@
+2. Inserir valores numa tabela, mas nenhuma BD se encontra ativa ✅
+
+input:
+
+ > INSERT INTO tableName VALUES;
+
+output:
+
+ [Erro: Nenhuma base de dados ativa]
+ [DICA: Use 'USE db_name;' para ativar uma base de dados]
+ 
+ [ENTER] para tentar de novo

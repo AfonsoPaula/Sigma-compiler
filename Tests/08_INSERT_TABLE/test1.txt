@@ -1,0 +1,22 @@
+1. Inserir valores numa tabela de uma dada BD ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName (3);
+
+ > INSERT INTO tableName VALUES;
+
+output:
+
+ Digite o valor para a coluna 'id': 1
+
+ Digite o valor para a coluna 'name': Ana
+
+ Digite o valor para a coluna 'age': 28
+ 
+
+ [Valores inseridos com sucesso na linha 1 da tabela 'tableName']

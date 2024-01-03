@@ -1,0 +1,17 @@
+2. Inserir valores numa tabela que não existe ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName1 (3);
+
+ > INSERT INTO tableName2 VALUES;
+
+output:
+
+ [Erro: A tabela 'tableName2' não foi encontrada na base de dados 'db_name']
+ 
+ [ENTER] para tentar de novo
