@@ -130,14 +130,14 @@ void useDatabase(char* dbname)
             activeDatabaseIndex = i;
             found = 1;
             printf("\n [Base de dados '%s' (index:[%i]) ativa]\n", dbname, i);
-            printf(" [A partir de agora, você pode criar tabelas nesta base de dados]\n\n");
+            printf(" [A partir de agora pode criar tabelas nesta base de dados]\n\n");
             printf(" [ENTER] para prosseguir\n");
             break;
         }
     }
 
     if (!found) {
-        printf("\n [Erro: A base de dados '%s' não foi encontrada]\n\n", dbname);
+        printf("\n [Erro: Base de dados '%s' não foi encontrada]\n\n", dbname);
         printf(" [ENTER] para tentar de novo\n");
     }
 }

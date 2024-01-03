@@ -1,0 +1,11 @@
+2. Utilizar uma Base de Dados que não exista no sistema ✅
+
+input:
+
+ > USE db_name;
+
+output:
+
+ [Erro: Base de dados 'db_name' não foi encontrada]
+
+ [ENTER] para tentar de novo

@@ -1,0 +1,14 @@
+1. Utilizar uma determinada Base de Dados previamente criada ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+output:
+
+ [Base de dados 'db_name' (index:[0]) ativa]
+ [A partir de agora pode criar tabelas nesta base de dados]
+
+ [ENTER] para prosseguir
