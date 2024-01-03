@@ -1,0 +1,12 @@
+1. Atualizar uma linha de uma tabela sem uma BD ativa ✅
+
+input:
+
+ > UPDATE ROW 2 FROM tableName;
+
+output:
+
+ [Erro: Nenhuma base de dados ativa]
+ [DICA: Use 'USE db_name;' para ativar uma base de dados]
+
+ [ENTER] para tentar de novo

@@ -1,0 +1,20 @@
+1. Atualizar uma linha inválida de uma tabela na BD ativa ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName (3);
+
+ > INSERT INTO tableName VALUES;
+
+ > UPDATE ROW 5 FROM tableName2;
+
+output:
+
+ [Erro: Número de linha inválido]
+ [DICA: 'SELECT tableName;' para visualizar a tabela]
+
+ [ENTER] para tentar de novo

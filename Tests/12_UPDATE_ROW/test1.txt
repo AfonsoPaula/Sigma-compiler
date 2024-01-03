@@ -1,0 +1,31 @@
+1. Atualizar uma linha de uma tabela de uma dada BD ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName (3);
+
+ > INSERT INTO tableName VALUES;
+
+ > INSERT INTO tableName VALUES;
+
+ > INSERT INTO tableName VALUES;
+
+ > UPDATE ROW 2 FROM tableName;
+
+output:
+
+ [Dados da linha 2 da tabela 'tableName']:
+   id: 2
+   name: Pedro
+   age: 34
+
+ [Insira os novos valores para a linha 2 da tabela 'tableName']:
+   id: 4
+   name: Gonçalo
+   age: 42
+
+ [Linha 2 da tabela 'tableName' atualizada com sucesso!]

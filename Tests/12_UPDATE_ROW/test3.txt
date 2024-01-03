@@ -1,0 +1,15 @@
+1. Atualizar uma linha de uma tabela que não existe na BD ativa ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > UPDATE ROW 2 FROM tableName2;
+
+output:
+
+ [Erro: A tabela 'tableName2' não foi encontrada na base de dados 'db_name']
+
+ [ENTER] para tentar de novo

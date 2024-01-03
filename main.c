@@ -511,6 +511,7 @@ void updateRow(char* tableName, int rowNum)
     // Verifica se o número da linha fornecido é válido
     if (rowNum <= 0 || rowNum > databases[activeDatabaseIndex].tables[tableIndex].numRows) {
         printf("\n [Erro: Número de linha inválido]\n");
+        printf(" [DICA: 'SELECT tableName;' para visualizar a tabela]\n\n");
         printf(" [ENTER] para tentar de novo\n");
         return;
     }
@@ -529,7 +530,6 @@ void updateRow(char* tableName, int rowNum)
     }
 
     printf("\n [Linha %d da tabela '%s' atualizada com sucesso!]\n\n", rowNum, tableName);
-    // printf(" [ENTER] para prosseguir\n");
 }
 /* --------------------------- DROP TABLE ----------------------------- */
 void dropTable(char* tableName)
