@@ -124,6 +124,13 @@ void useDatabase(char* dbname)
 {
     int found = 0;
 
+    // Verificar se a base de dados já está ativa
+    if (activeDatabaseIndex != -1 && strcmp(databases[activeDatabaseIndex].name, dbname) == 0) {
+        printf("\n [Aviso: Base de dados '%s' já está ativa]\n\n", dbname);
+        printf(" [ENTER] para tentar de novo\n");
+        return;
+    }
+
     for (int i = 0; i < numDatabases; ++i) {
         if (strcmp(databases[i].name, dbname) == 0) {
             activeDatabaseIndex = i;

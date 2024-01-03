@@ -1,0 +1,15 @@
+3. Utilizar uma determinada Base de Dados que já estava a ser usada ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+  > USE db_name;
+
+output:
+
+ [Aviso: Base de dados 'SQL' já está ativa]
+
+ [ENTER] para tentar de novo
