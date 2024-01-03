@@ -1,0 +1,17 @@
+5. Eliminar uma coluna inválida de uma tabela de uma BD ativa ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName (3);
+
+ > DELETE COL country FROM tableName;
+
+output:
+
+ [Erro: A tabela 'country' não foi encontrada na base de dados 'db_name']
+
+ [ENTER] para tentar de novo

@@ -382,7 +382,7 @@ void deleteRowFromTable(char* tableName, int rowNum)
     // Verificar se o número da linha fornecido é válido
     if (rowNum <= 0 || rowNum > databases[activeDatabaseIndex].tables[tableIndex].numRows) {
         printf("\n [Erro: Número de linha inválido]\n");
-        printf(" [DICA: 'SELECT tableName;' para visualizar a tabela]\n\n")
+        printf(" [DICA: 'SELECT tableName;' para visualizar a tabela]\n\n");
         printf(" [ENTER] para tentar de novo\n");
         return;
     }
@@ -478,9 +478,8 @@ void deleteColFromTable(char* tableName, char* columnName)
         }
 
         printf("\n [Coluna '%s' da tabela '%s' eliminada com sucesso!]\n\n", columnName, tableName);
-        // printf(" [ENTER] para prosseguir\n");
     } else {
-        printf("\n [Operação de eliminação cancelada]\n");
+        printf("\n [Operação de eliminação cancelada]\n\n");
     }
 }
 /* --------------------------- UPDATE ROW ----------------------------- */

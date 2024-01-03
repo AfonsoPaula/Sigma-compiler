@@ -1,0 +1,12 @@
+3. Eliminar uma coluna de uma tabela sem ter uma BD ativa ✅
+
+input:
+
+ > DELETE COL age FROM tableName;
+
+output:
+
+ [Erro: Nenhuma base de dados ativa]
+ [DICA: Use 'USE db_name;' para ativar uma base de dados]
+
+ [ENTER] para tentar de novo

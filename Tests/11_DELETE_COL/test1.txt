@@ -1,0 +1,23 @@
+1. Eliminar uma coluna de uma tabela de uma dada BD e confirmar ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName (3);
+
+ > INSERT INTO tableName VALUES;
+
+ > INSERT INTO tableName VALUES;
+
+ > INSERT INTO tableName VALUES;
+
+ > DELETE COL age FROM tableName;
+
+output:
+
+ Tem a certeza de que deseja eliminar a coluna 'age' da tabela 'tableName'? (S/N): S
+
+ [Coluna 'age' da tabela 'tableName' eliminada com sucesso!]
