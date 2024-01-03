@@ -1,0 +1,12 @@
+4. Eliminar uma Base de Dados, em que não existe nenhuma guardada no sistema ✅
+
+input:
+
+ > DROP DATABASE db_name;
+
+output:
+
+ [Não existem bases de dados guardadas]
+ [DICA: Utilize o comando 'CREATE' para criar uma]
+ 
+ [ENTER] para tentar de novo

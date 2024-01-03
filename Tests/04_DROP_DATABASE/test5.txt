@@ -1,0 +1,13 @@
+5. Eliminar uma Base de Dados que não existe no sistema ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > DROP DATABASE db_name2;
+
+output:
+
+ [Erro: A base de dados '%s' não foi encontrada]
+ 
+ [ENTER] para tentar de novo

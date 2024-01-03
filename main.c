@@ -105,9 +105,9 @@ void dropDatabase(char* dbname)
                     numDatabases--;
                     found = 1;
                     printf("\n [A base de dados '%s' foi eliminada com sucesso!]\n\n", dbname);
-                    printf(" [ENTER] para prosseguir\n");
+                    printf(" [ENTER] para prosseguir\n\n");
                 }else{
-                    printf("\n [Operação de eliminação cancelada]\n");
+                    printf("\n [Operação de eliminação cancelada]\n\n");
                     return;
                 }
                 break;
@@ -115,7 +115,7 @@ void dropDatabase(char* dbname)
         }
         // Caso não tenha sido encontrada
         if (!found) {
-            printf("\n [Erro: A base de dados '%s' não foi encontrada]\n", dbname);
+            printf("\n [Erro: A base de dados '%s' não foi encontrada]\n\n", dbname);
             printf(" [ENTER] para tentar de novo\n");
         }
     }

@@ -1,0 +1,16 @@
+3. Eliminar uma Base de Dados que esteja ativa ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > DROP DATABASE db_name;
+
+output:
+
+ [Encontra-se com a BD 'db_name' ativa de momento]
+ [DICA: Selecione outra BD para poder eliminar 'db_name']
+
+ [ENTER] para tentar de novo
