@@ -1,0 +1,11 @@
+1. Criar uma nova Base de Dados ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+output:
+
+ [Base de dados 'db_name' criada com sucesso!]
+
+ [ENTER] para tentar de novo

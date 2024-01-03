@@ -1,0 +1,13 @@
+Criar uma Base de Dados já existente ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > CREATE DATABASE db_name;
+
+output:
+
+ [Erro: A base de dados 'db_name' já existe]
+
+ [ENTER] para tentar de novo

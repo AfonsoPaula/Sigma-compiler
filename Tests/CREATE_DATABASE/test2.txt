@@ -1,0 +1,13 @@
+2. Criar uma base de dados com o número máximo de BDs atingido ✅
+
+input:
+
+ ... criar 100 BDs ...
+
+ > CREATE DATABASE db_name;
+
+output:
+
+ [Erro: Limite de bases de dados atingido]
+
+ [ENTER] para tentar de novo
