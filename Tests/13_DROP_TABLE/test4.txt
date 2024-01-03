@@ -1,0 +1,17 @@
+2. Eliminar uma tabela que não existe numa dada BD ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName1 (3);
+
+ > DROP TABLE tableName2;
+
+output:
+
+ [Erro: A tabela 'tableName2' não foi encontrada na base de dados 'db_name']
+
+ [ENTER] para tentar de novo

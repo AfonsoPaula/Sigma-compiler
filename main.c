@@ -572,9 +572,9 @@ void dropTable(char* tableName)
         databases[activeDatabaseIndex].numTables--;
 
         printf("\n [A tabela '%s' foi eliminada com sucesso!]\n\n", tableName);
-        // printf(" [ENTER] para prosseguir\n");
+        
     } else {
-        printf("\n [Operação de eliminação cancelada]\n");
+        printf("\n [Operação de eliminação cancelada]\n\n");
     }
 }
 
