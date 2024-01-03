@@ -1,0 +1,21 @@
+1. Visualizar as Bases de Dados do sistema ✅
+
+input:
+
+ > CREATE DATABASE db_name1;
+
+ > CREATE DATABASE db_name2;
+
+ > CREATE DATABASE db_name3;
+
+ > SHOW DATABASES;
+
+output:
+
+ Bases de dados armazenadas:
+ |
+ ├──  [1] db_name1;
+ ├──  [2] db_name2;
+ ├──  [3] db_name3;
+
+ [ENTER] para prosseguir

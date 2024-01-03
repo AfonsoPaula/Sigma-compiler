@@ -1,0 +1,12 @@
+2. Visualizar BDs, onde não se encontra nenhuma armazenada ✅
+
+input:
+
+ > SHOW DATABASES;
+
+output:
+
+ [Nenhuma base de dados armazenada]
+ [DICA: 'CREATE DATABASE db_name;' para criar uma]
+
+ [ENTER] para prosseguir

@@ -61,7 +61,8 @@ void createDatabase(char* dbname)
 void showDatabases()
 {
     if (numDatabases == 0) {
-        printf("\n [Nenhuma base de dados foi criada ainda]\n\n");
+        printf("\n [Nenhuma base de dados armazenada]\n");
+        printf(" [DICA: 'CREATE DATABASE db_name;' para criar uma]\n");
     } else {
         printf("\n Bases de dados armazenadas:\n");
         for (int i = 0; i < numDatabases; ++i) {
