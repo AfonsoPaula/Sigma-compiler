@@ -1,0 +1,15 @@
+3. Criar uma nova tabela com um número inválido de colunas ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName (84);
+
+output:
+
+ [Número inválido de colunas (entre 0 e 50)]
+
+ [ENTER] para tentar de novo

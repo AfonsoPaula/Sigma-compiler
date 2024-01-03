@@ -1,0 +1,17 @@
+5. Criar uma tabela onde o número máximo de tabelas foi atingido ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > ... criar 50 tabelas ...
+
+ > CREATE TABLE tableName (3);
+
+output:
+
+ [Erro: Limite de tabelas atingido na base de dados 'tableName']
+
+ [ENTER] para tentar de novo

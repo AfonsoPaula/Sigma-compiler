@@ -1,0 +1,14 @@
+2. Criar uma nova tabela, em que nenhuma BD se encontra ativa ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > CREATE TABLE tableName (3);
+
+output:
+
+ [Erro: Nenhuma base de dados ativa]
+ [DICA: Utilize a query 'USE' para ativar uma BD]
+
+ [ENTER] para tentar de novo

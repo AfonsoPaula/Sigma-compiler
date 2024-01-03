@@ -1,0 +1,17 @@
+4. Criar uma tabela já existente na BD ativa ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName (3);
+
+ > CREATE TABLE tableName (5);
+
+output:
+
+ [Erro: A tabela 'tableName' já existe na BD 'db_name']
+
+ [ENTER] para tentar de novo

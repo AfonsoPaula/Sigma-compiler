@@ -5,11 +5,10 @@
 #include "parser.tab.h"
 
 // Definições para limites de BD, tabelas e colunas
-#define MAX_DATABASES     100
-#define MAX_TABLES        100
+#define MAX_DATABASES      50
+#define MAX_TABLES         50
 #define MAX_COLUMNS        50
 #define MAX_ROWS          100
-#define MAX_TABLES_PER_DB  50
 
 // Variáveis que seguem as BD e TB ativas
 int activeDatabaseIndex = -1;
@@ -30,7 +29,7 @@ int numTables = 0;
 /* --------------------- DATABASES ----------------------- */
 typedef struct{
     char name[256];
-    Table tables[MAX_TABLES_PER_DB];
+    Table tables[MAX_TABLES];
     int numTables;
 } Database;
 
@@ -171,11 +170,28 @@ void createTable(char* tableName, int numColumns)
 
     // Verificar se o número inserido é válido
     if (numColumns <= 0 || numColumns > MAX_COLUMNS) {
-        printf("\n [Número inválido de colunas (entre 0 e 50)]\n");
+        printf("\n [Número inválido de colunas (entre 0 e 50)]\n\n");
         printf(" [ENTER] para tentar de novo\n");
         return;
     }
 
+    // Verificar se a tabela já existe na BD ativa
+    for (int i = 0; i < databases[activeDatabaseIndex].numTables; ++i) {
+        if (strcmp(databases[activeDatabaseIndex].tables[i].name, tableName) == 0) {
+            printf("\n [Erro: A tabela '%s' já existe na BD '%s']\n\n", tableName, databases[activeDatabaseIndex].name);
+            printf(" [ENTER] para tentar de novo\n");
+            return;
+        }
+    }
+
+    // Verificar se o limite de tabelas foi atingido na base de dados ativa
+    if (databases[activeDatabaseIndex].numTables >= MAX_TABLES) {
+        printf("\n [Erro: Limite de tabelas atingido na base de dados '%s']\n\n", databases[activeDatabaseIndex].name);
+        printf(" [ENTER] para tentar de novo\n");
+        return;
+    }
+
+    // Criar a nova tabela
     Table newTable;
     strcpy(newTable.name, tableName);
     newTable.numColumns = numColumns;
@@ -186,29 +202,16 @@ void createTable(char* tableName, int numColumns)
         strcpy(newTable.columns[i], columnName);
     }
 
-    // Adicione a nova tabela à base de dados ativa
+    // Adicionar a nova tabela à base de dados ativa
     databases[activeDatabaseIndex].tables[databases[activeDatabaseIndex].numTables] = newTable;
     databases[activeDatabaseIndex].numTables++;
 
-    // Verificar se a tabela foi armazenada na base de dados
-    int found = 0;
-    for (int i = 0; i < databases[activeDatabaseIndex].numTables; ++i) {
-        if (strcmp(databases[activeDatabaseIndex].tables[i].name, tableName) == 0) {
-            found = 1;
-            break;
-        }
+    // Mostrar a confirmação e o resumo ao utilizador 
+    printf("\n Tabela '%s' criada com sucesso na base de dados '%s' com as seguintes colunas:\n", tableName, databases[activeDatabaseIndex].name);
+    for (int i = 0; i < newTable.numColumns; ++i) {
+        printf("  -> %s\n", newTable.columns[i]);
     }
-
-    // Mensagem de confirmação
-    if (found) {
-        printf("\n Tabela '%s' criada com sucesso na base de dados '%s' com as seguintes colunas:\n", tableName, databases[activeDatabaseIndex].name);
-        for (int i = 0; i < newTable.numColumns; ++i) {
-            printf("  -> %s\n", newTable.columns[i]);
-        }
-        printf("\n");
-    } else {
-        printf("\n [Erro: A tabela não foi armazenada corretamente na base de dados '%s']\n", databases[activeDatabaseIndex].name);
-    }
+    printf("\n");
 }
 /* --------------------------- SHOW TABLES ---------------------------- */
 void showTables()

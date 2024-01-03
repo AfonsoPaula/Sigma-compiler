@@ -1,0 +1,22 @@
+1. Criar uma nova tabela ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName (3);
+
+output:
+
+ [Digite o nome da coluna 1]: id
+
+ [Digite o nome da coluna 2]: name
+
+ [Digite o nome da coluna 3]: age
+
+ Tabela 'tableName' criada com sucesso na base de dados 'db_name' com as seguintes colunas:
+  -> id
+  -> name
+  -> age
