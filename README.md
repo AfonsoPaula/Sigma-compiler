@@ -6,7 +6,7 @@ O Sigma compiler é um programa desenvolvido para interpretar comandos numa ling
 
 <hr>
 
-## Estrutura do Projeto
+## ➡️Estrutura do Projeto
 
 - A diretoria ```/Ast``` contém os ficheiros relacionados com a implementação da Árvore Abstrata:
   - **'ast.h'**: Declarações de estruturas e funções relacionadas à Árvore Abstrata.
@@ -23,7 +23,7 @@ O Sigma compiler é um programa desenvolvido para interpretar comandos numa ling
 
 <hr>
 
-## Requisitos e Dependências
+## ➡️Requisitos e Dependências
 
 Para compilar e executar este projeto, é necessário ter algumas ferramentas instaladas no sistema. Aqui estão as instruções para instalação no Linux e Windows:
 
@@ -68,7 +68,7 @@ Certifique-se de ajustar o PATH em ambos os sistemas operativos para incluir as 
 
 <hr>
 
-## Guia de Utilização
+## ➡️Guia de Utilização
 
 Para utilizar o Sigma Compiler, siga estes passos:
 
@@ -100,7 +100,7 @@ Posto isto, irá inicializar o Sigma na linha de comandos, permitindo a interaç
 
 <hr>
 
-## Funcionalidades
+## ➡️Funcionalidades
 - **Base de Dados**:
   - Criar, listar e excluir Bases de Dados.
   - Selecionar uma dada Base de Dados.
@@ -119,7 +119,7 @@ Posto isto, irá inicializar o Sigma na linha de comandos, permitindo a interaç
 
 <hr>
 
-## Exemplo de Comandos 
+## ➡️Exemplo de Comandos 
 
 ```
                              /* Para Bases de Dados */
