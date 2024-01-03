@@ -1,0 +1,17 @@
+4. Eliminar uma linha de uma tabela que não existe numa BD ativa ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName1 (3);
+
+ > DELETE ROW 3 FROM tableName2;
+
+output:
+
+ [Erro: A tabela 'tableName2' não foi encontrada na base de dados 'db_name']
+
+ [ENTER] para tentar de novo

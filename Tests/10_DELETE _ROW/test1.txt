@@ -1,0 +1,27 @@
+1. Eliminar uma linha de uma tabela de uma dada BD e confirmar ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName (3);
+
+ > INSERT INTO tableName VALUES;
+
+ > INSERT INTO tableName VALUES;
+
+ > DELETE ROW 3 FROM tableName;
+
+output:
+
+ [Dados da linha 3 da tabela 'tableName']:
+
+   id: 3
+   name: Maria
+   age: 23
+
+ Tem a certeza de que deseja eliminar esta linha? (S/N): S
+
+ [Linha 3 da tabela 'tableName' eliminada com sucesso!]
