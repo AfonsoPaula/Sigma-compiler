@@ -1,0 +1,23 @@
+1. Listar as tabelas de uma dada BD ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > CREATE TABLE tableName1 (3);
+
+ > CREATE TABLE tableName2 (3);
+
+ > SHOW TABLES;
+
+output:
+
+ Tabelas na base de dados 'db_name':
+ |
+ ├── [0] tableName1 (ID, NAME, ADDRESS);
+ |
+ ├── [1] tableName2 (ID, NAME, AGE);
+
+ [ENTER] para prosseguir

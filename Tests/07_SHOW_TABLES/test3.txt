@@ -1,0 +1,16 @@
+3. Listar as tabelas, mas a BD encontra-se vazia ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > SHOW TABLES;
+
+output:
+
+ [Nenhuma tabela na base de dados '%s']
+ [DICA: 'CREATE TABLE tableName (numColumns); para criar uma]
+
+ printf("\n [ENTER] para prosseguir\n");

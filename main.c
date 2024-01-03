@@ -225,11 +225,23 @@ void showTables()
 
     if (databases[activeDatabaseIndex].numTables == 0) {
         printf("\n [Nenhuma tabela na base de dados '%s']\n", databases[activeDatabaseIndex].name);
+        printf(" [DICA: 'CREATE TABLE tableName (numColumns); para criar uma]\n");
     } else {
         printf("\n Tabelas na base de dados '%s':\n", databases[activeDatabaseIndex].name);
         for (int i = 0; i < databases[activeDatabaseIndex].numTables; ++i) {
             printf(" |\n");
-            printf(" ├── [%d] %s;\n", i, databases[activeDatabaseIndex].tables[i].name);
+            printf(" ├── [%d] %s (", i, databases[activeDatabaseIndex].tables[i].name);
+        
+            for (int j = 0; j < databases[activeDatabaseIndex].tables[i].numColumns; ++j) {
+                printf("%s", databases[activeDatabaseIndex].tables[i].columns[j]);
+                
+                // Adicionar vírgula se não for a última coluna
+                if (j < databases[activeDatabaseIndex].tables[i].numColumns - 1) {
+                    printf(", ");
+                }
+            }
+
+            printf(");\n");
         }
     }
     printf("\n [ENTER] para prosseguir\n");

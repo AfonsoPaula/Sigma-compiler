@@ -1,0 +1,14 @@
+2. Listar as tabelas, mas nenhuma BD se encontra ativa ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > SHOW TABLES;
+
+output:
+
+ [Erro: Nenhuma BD ativa]
+ [DICA: Use 'USE db_name;' para ativar uma base de dados]
+
+ [ENTER] para tentar de novo
