@@ -5,17 +5,17 @@ CC = gcc
 CFLAGS = -Wall
 
 # Lista dos source-files
-SOURCES = lexer.l parser.y auxiliar.c
+SOURCES = lexer.l parser.y main.c
 
 # Nome do compilador (ficheiro executável)
-EXECUTABLE = sql
+EXECUTABLE = sigma
 
 #-------------------------------------------------------------------------
 # make
 all: $(EXECUTABLE)
 
-$(EXECUTABLE): lex.yy.c parser.tab.c auxiliar.c
-	$(CC) $(CFLAGS) lex.yy.c parser.tab.c auxiliar.c -o $(EXECUTABLE) -lfl
+$(EXECUTABLE): lex.yy.c parser.tab.c main.c
+	$(CC) $(CFLAGS) lex.yy.c parser.tab.c main.c -o $(EXECUTABLE) -lfl
 
 lex.yy.c: lexer.l
 	flex lexer.l
