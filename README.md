@@ -1,4 +1,6 @@
-# Sigma Compiler 🐉
+<p align="center">
+  <h1 align="center">Sigma Compiler 🐉</h1>
+</p>
 
 Este projeto encaixa-se no contexto académico da disciplina Linguagens de Programação e Compiladores (Mestrado em Engenharia Informática), onde o desafio lançado passa por desenvolver um compilador/interpretador com uma identidade única, indo além do convencional, de maneira a aplicar os conhecimentos adquiridos ao longo semestre.
 
