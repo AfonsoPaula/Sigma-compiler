@@ -146,7 +146,7 @@ void whichDatabase()
 {
     if(activeDatabaseIndex == -1){
         printf("\n [Até ao momento nenhuma base de dados ativa]\n");
-        printf(" [DICA: 'USE DATABASE db_name;' Para poder ativar uma BD]\n\n");
+        printf(" [DICA: 'USE DATABASE db_name;' para poder ativar uma BD]\n\n");
         printf(" [ENTER] para tentar de novo\n");
     }else{
         printf("\n [Base de dados '%s' ativa de momento]\n\n", databases[activeDatabaseIndex].name);

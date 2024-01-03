@@ -1,0 +1,12 @@
+2. Verificar qual a Base de Dados a ser utilizada, em que não existe nenhuma ativa ✅
+
+input:
+
+ > WHICH DATABASE;
+
+output:
+
+ [Até ao momento nenhuma base de dados ativa]
+ [DICA: 'USE DATABASE db_name;' para poder ativar uma BD]
+    
+ [ENTER] para tentar de novo

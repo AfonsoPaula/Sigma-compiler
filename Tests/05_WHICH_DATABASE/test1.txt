@@ -1,0 +1,15 @@
+1. Verificar qual a Base de Dados ativa ✅
+
+input:
+
+ > CREATE DATABASE db_name;
+
+ > USE db_name;
+
+ > WHICH DATABASE;
+
+output:
+
+ [Base de dados 'db_name' ativa de momento]
+
+ [ENTER] para prosseguir
