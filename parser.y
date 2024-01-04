@@ -23,12 +23,12 @@ extern char *yyget_text(void);
 /* -------------------- Prod. and Rule Section --------------------- */
 %%
 
-query: command SEMICOLON                                                      { ; }
+query: query command                                                          { ; }
+     | command                                                                { ; }
      | EXTCMD                                                                 { printf("\n A sair do Sigma Compiler...\n");
                                                                                 printf(" Até breve!\n");
                                                                                 printf("_________________________________________________________________________________________________\n\n\n\n");
                                                                                 exit(EXIT_SUCCESS); }
-     | query command SEMICOLON                                                { ; }
      ;
 
 command: show 

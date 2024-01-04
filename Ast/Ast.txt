@@ -1,0 +1,184 @@
+query
+│
+└── command
+    │
+    │
+    │
+    ├── createdb
+    │   │
+    │   ├── CREATE DATABASE IDENTIFIER SEMICOLON LINE
+    │   │         |             |
+    │   |         |             └── db_name
+    |   |         |
+    │   │         └── createDatabase($3)
+    │   │
+    │   ├── CREATE DATABASE error LINE
+    │   │         │
+    │   │         ├── printf("\n [Query 'CREATE DATABASE' não se encontra bem construida]\n")
+    │   │         ├── printf(" [DICA: CREATE DATABASE db_nome;])\n\n")
+    │   │         └── printf(" [ENTER] para tentar de novo \n")
+    │   │
+    │   └── CREATE error LINE
+    │             │
+    │             ├── printf("\n [Query CREATE incompleta]\n")
+    │             ├── printf(" [DICA: 'CREATE DATABASE db_name;' ou 'CREATE TABLE tb_name;'?]\n\n")
+    │             └── printf(" [ENTER] para tentar de novo \n")
+    │
+    │
+    │
+    ├── show
+    │   │
+    │   ├── SHOW DATABASES SEMICOLON LINE
+    │   │       │
+    │   │       └── showDatabases()
+    │   │
+    │   ├── SHOW TABLES SEMICOLON LINE
+    │   │       │
+    │   │       └── showTables()
+    │   │
+    │   └── SHOW error LINE
+    │           │
+    │           ├── printf("\n [Query 'SHOW' não se encontra bem construida]\n")
+    │           ├── printf(" [DICA: 'SHOW DATABASES;' ou 'SHOW TABLES;']\n\n")
+    │           └── printf(" [ENTER] para tentar de novo \n")
+    │
+    │
+    │
+    ├── usedb
+    |   │
+    |   ├── USE IDENTIFIER SEMICOLON LINE
+    |   │      |    |
+    │   |      |    └── db_name
+    |   |      |
+    |   │      └── useDatabase($2)
+    |   │
+    |   └── USE error LINE
+    |           │
+    |           ├── printf("\n [Query 'USE' não se encontra bem construida]\n")
+    |           ├── printf(" [DICA: USE DATABASE db_nome;])\n\n")
+    |           └── printf(" [ENTER] para tentar de novo \n")
+    |            
+    |
+    |
+    ├── drop
+    |   │
+    |   ├── DROP DATABASE IDENTIFIER SEMICOLON LINE
+    |   |       |             |
+    |   |       |             └── db_name
+    |   │       │
+    |   │       └── dropDatabase($3)
+    |   │
+    |   ├── DROP TABLE IDENTIFIER SEMICOLON LINE
+    |   |       |           |    
+    |   |       |           └── tableName
+    |   │       │
+    |   │       └── dropTable($3)
+    |   │
+    |   └── DROP error LINE
+    |            │
+    |            ├── printf("\n [Query 'DROP' não se encontra bem construída]\n")
+    |            ├── printf(" [DICA: 'DROP DATABASE db_name;' ou 'DROP TABLE tableName']\n\n")
+    |            └── printf(" [ENTER] para tentar de novo \n")
+    |
+    |
+    |
+    ├── wich
+    |    │
+    |    ├── WHICH DATABASE SEMICOLON LINE
+    |    │        │
+    |    │        └── whichDatabase()
+    |    │
+    |    └── WHICH error
+    |             │
+    |             ├── printf("\n [Query 'WHICH' não se encontra bem construída]\n")
+    |             ├── printf(" [DICA: WHICH DATABASE;]\n\n")
+    |             └── printf(" [ENTER] para tentar de novo \n")
+    |
+    |
+    |
+    ├── createtb
+    |    │
+    |    ├── CREATE TABLE IDENTIFIER OPENPAR NUMBER CLOSEPAR SEMICOLON LINE
+    |    |     |              |
+    |    |     |              |
+    |    │     │              └──tableName 
+    |    │     │         
+    |    │     │        
+    |    │     └── createTable($3,$5)
+    |    │
+    |    └── CREATE TABLE error LINE
+    |              │
+    |              ├── printf("\n [Query 'CREATE TABLE' não se encontra bem construída]\n")
+    |              ├── printf(" [DICA: CREATE TABLE table_name (numColumns);]\n\n")
+    |              └── printf(" [ENTER] para tentar de novo \n")
+    |
+    |
+    |
+    ├── insertvals
+    |    │
+    |    ├── INSERT IDENTIFIER VALUES SEMICOLON LINE
+    |    |         |    | 
+    |    |         |    |
+    |    │         │    └── tableName      
+    |    │         │      
+    |    │         │      
+    |    │         └── insertIntoTable($2)
+    |    │  
+    |    └── INSERT error LINE
+    |              │
+    |              ├── printf("\n [Query 'INSERT INTO' não se encontra bem construída]\n")
+    |              ├── printf(" [DICA: INSERT INTO tableName VALUES;]\n\n")
+    |              └── printf(" [ENTER] para tentar de novo \n")
+    |
+    |
+    |
+    ├── selecttb
+    |    │
+    |    ├── SELECT IDENTIFIER SEMICOLON LINE
+    |    |         |    | 
+    |    |         |    |
+    |    │         │    └── tableName         
+    |    │         │         
+    |    │         └── selectTable($2)
+    |    │   
+    |    └── SELECT error LINE
+    |              │
+    |              ├── printf("\n [Query 'SELECT' não se encontra bem construída]\n")
+    |              ├── printf(" [DICA: SELECT tableName;]\n\n")
+    |              └── printf(" [ENTER] para tentar de novo \n")
+    |
+    |
+    |
+    └── delete
+        |
+        ├── DELETE ROW NUMBER FROM IDENTIFIER SEMICOLON LINE
+        |         |                     |  
+        |         |                     |
+        │         │                     └── tableName
+        │         │     
+        │         │    
+        │         └── deleteRowFromTable($5, $3)
+        │   
+        ├── DELETE COL IDENTIFIER FROM IDENTIFIER SEMICOLON LINE
+        │         │         | 
+        │         │         └── tableName
+        │         │     
+        │         └── deleteColFromTable($5, $3)
+        │       
+        ├── DELETE ROW error LINE
+        │         │
+        │         ├── printf("\n [Query 'DELETE ROW' não se encontra bem construída]\n")
+        │         ├── printf(" [DICA: DELETE ROW numRow FROM tableName;]\n\n")
+        │         └── printf(" [ENTER] para tentar de novo \n")
+        │  
+        ├── DELETE COL error LINE
+        │         │
+        │         ├── printf("\n [Query 'DELETE COL' não se encontra bem construída]\n")
+        │         ├── printf(" [DICA: DELETE COL colName FROM tableName;]\n\n")
+        │         └── printf(" [ENTER] para tentar de novo \n")
+        │   
+        └── DELETE error LINE
+                  │
+                  ├── printf("\n [Query DELETE incompleta]\n")
+                  ├── printf(" [DICA: 'DELETE ROW' ou 'DELETE COL'?]\n\n")
+                  └── printf(" [ENTER] para tentar de novo \n")
