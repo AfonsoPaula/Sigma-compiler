@@ -12,9 +12,7 @@ O Sigma compiler é um programa desenvolvido para interpretar comandos numa ling
 
 ## ➡️Estrutura do Projeto
 
-- A diretoria ```/Ast``` contém os ficheiros relacionados com a implementação da Árvore Abstrata:
-  - **'ast.h'**: Declarações de estruturas e funções relacionadas à Árvore Abstrata.
-  - **'ast.c'**: Implementação das funções para manipulação da Árvore Abstrata.
+- A diretoria ```/Ast``` contém o ficheiro relacionado com a implementação da árvore sintática abstrata:
 - ```lexer.l```: Especificação do analisador léxico usando flex.
 - ```parser.y```: Especificação do analisador sintático usando bison.
 - O ficheiro ```main.c``` é o ponto de entrada do programa.
