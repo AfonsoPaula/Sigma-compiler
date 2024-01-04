@@ -20,7 +20,7 @@ extern char *yyget_text(void);
 %token <id> IDENTIFIER
 %token <num> NUMBER
 
-/* -------------------- Prod. and Rule Section --------------------- */
+/* ---------------- Prod. and Rule Section --------------- */
 %%
 
 query: query command                                                          { ; }
@@ -117,7 +117,7 @@ rowupdate: UPDATE ROW NUMBER FROM IDENTIFIER SEMICOLON LINE                   { 
 
 %%
 
-/* -------------------------- YYERROR ANALISE ------------------------- */
+/* ------------------- YYERROR ANALISE ------------------- */
 void yyerror(const char* s)
 { 
     const char* text = yyget_text();

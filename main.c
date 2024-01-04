@@ -10,9 +10,8 @@
 #define MAX_COLUMNS        50
 #define MAX_ROWS          100
 
-// Variáveis que seguem as BD e TB ativas
+// Variável que segue a BD ativa
 int activeDatabaseIndex = -1;
-int activeTableIndex    = -1;
 
 /* ----------------------- TABLES ------------------------ */
 typedef struct {
@@ -39,6 +38,7 @@ int numDatabases = 0;
 /* -------------------------- CREATE DATABASE ------------------------- */
 void createDatabase(char* dbname) 
 {
+    // Verificar se a BD já existe
     for (int i = 0; i < numDatabases; ++i) {
         if(strcmp(databases[i].name, dbname) == 0){
             printf("\n [Erro: A base de dados '%s' já existe]\n\n", dbname);
@@ -46,6 +46,7 @@ void createDatabase(char* dbname)
             return;
         }
     }
+    // Verificar se o número max de BDs já foi atingido
     if (numDatabases < MAX_DATABASES) {
         strcpy(databases[numDatabases].name, dbname);
         numDatabases++;
@@ -59,6 +60,7 @@ void createDatabase(char* dbname)
 /* -------------------------- SHOW DATABASES -------------------------- */
 void showDatabases()
 {
+    // Verificar se existe alguma BD no sistema
     if (numDatabases == 0) {
         printf("\n [Nenhuma base de dados armazenada]\n");
         printf(" [DICA: 'CREATE DATABASE db_name;' para criar uma]\n");
@@ -130,7 +132,7 @@ void useDatabase(char* dbname)
         printf(" [ENTER] para tentar de novo\n");
         return;
     }
-
+    // Encontrar a BD no sistema e ativá-la
     for (int i = 0; i < numDatabases; ++i) {
         if (strcmp(databases[i].name, dbname) == 0) {
             activeDatabaseIndex = i;
@@ -141,7 +143,7 @@ void useDatabase(char* dbname)
             break;
         }
     }
-
+    // Caso não seja encontrada no sistema
     if (!found) {
         printf("\n [Erro: Base de dados '%s' não foi encontrada]\n\n", dbname);
         printf(" [ENTER] para tentar de novo\n");
@@ -150,6 +152,7 @@ void useDatabase(char* dbname)
 /* -------------------------- WHICH DATABASE -------------------------- */
 void whichDatabase()
 {
+    // Caso nenhuma BD esteja ativa no sistema
     if(activeDatabaseIndex == -1){
         printf("\n [Até ao momento nenhuma base de dados ativa]\n");
         printf(" [DICA: 'USE DATABASE db_name;' para poder ativar uma BD]\n\n");
@@ -203,6 +206,7 @@ void createTable(char* tableName, int numColumns)
     strcpy(newTable.name, tableName);
     newTable.numColumns = numColumns;
 
+    // Adicionar o nome de cada coluna
     for (int i = 0; i < numColumns; ++i) {
         printf("\n [Digite o nome da coluna %d]: ", i+1);
         scanf("%s", columnName);
@@ -223,6 +227,7 @@ void createTable(char* tableName, int numColumns)
 /* --------------------------- SHOW TABLES ---------------------------- */
 void showTables()
 {
+    // Verificar se há uma base de dados ativa
     if (activeDatabaseIndex == -1) {
         printf("\n [Erro: Nenhuma BD ativa]\n");
         printf(" [DICA: Use 'USE db_name;' para ativar uma base de dados]\n\n");
@@ -230,24 +235,24 @@ void showTables()
         return;
     }
 
+    // Caso não não haja nenhuma tabela na BD ativa
     if (databases[activeDatabaseIndex].numTables == 0) {
         printf("\n [Nenhuma tabela na base de dados '%s']\n", databases[activeDatabaseIndex].name);
         printf(" [DICA: 'CREATE TABLE tableName (numColumns); para criar uma]\n");
     } else {
         printf("\n Tabelas na base de dados '%s':\n", databases[activeDatabaseIndex].name);
+        // Printar cada tabela da BD ativa
         for (int i = 0; i < databases[activeDatabaseIndex].numTables; ++i) {
             printf(" |\n");
             printf(" ├── [%d] %s (", i, databases[activeDatabaseIndex].tables[i].name);
-        
+            // Printar cada coluna da tabela em questão
             for (int j = 0; j < databases[activeDatabaseIndex].tables[i].numColumns; ++j) {
                 printf("%s", databases[activeDatabaseIndex].tables[i].columns[j]);
-                
                 // Adicionar vírgula se não for a última coluna
                 if (j < databases[activeDatabaseIndex].tables[i].numColumns - 1) {
                     printf(", ");
                 }
             }
-
             printf(");\n");
         }
     }
@@ -256,6 +261,7 @@ void showTables()
 /* ------------------------ INSERT INTO TABLE- ------------------------ */
 void insertIntoTable(char* tableName)
 {
+    // Verificar se há uma base de dados ativa
     if (activeDatabaseIndex == -1) {
         printf("\n [Erro: Nenhuma base de dados ativa]\n");
         printf(" [DICA: Use 'USE db_name;' para ativar uma base de dados]\n\n");
@@ -264,7 +270,7 @@ void insertIntoTable(char* tableName)
     }
 
     int tableIndex = -1;
-    // Procura pela tabela na base de dados ativa
+    // Procurar pela tabela na base de dados ativa
     for (int i = 0; i < databases[activeDatabaseIndex].numTables; ++i) {
         if (strcmp(databases[activeDatabaseIndex].tables[i].name, tableName) == 0) {
             tableIndex = i;
@@ -272,26 +278,26 @@ void insertIntoTable(char* tableName)
         }
     }
 
-    // Verifica se a tabela foi encontrada
+    // Verificar se a tabela foi encontrada
     if (tableIndex == -1) {
         printf("\n [Erro: A tabela '%s' não foi encontrada na base de dados '%s']\n\n", tableName, databases[activeDatabaseIndex].name);
         printf(" [ENTER] para tentar de novo\n");
         return;
     }
 
-    // Verifica se há espaço para mais uma linha
+    // Verificar se há espaço para mais uma linha
     if (databases[activeDatabaseIndex].tables[tableIndex].numRows >= MAX_ROWS) {
         printf("\n [Erro: Limite de linhas atingido para a tabela '%s']\n\n", tableName);
         return;
     }
 
-    // Preenche os valores da nova linha
+    // Preencher os valores para a nova linha
     for (int i = 0; i < databases[activeDatabaseIndex].tables[tableIndex].numColumns; ++i) {
         printf("\n Digite o valor para a coluna '%s': ", databases[activeDatabaseIndex].tables[tableIndex].columns[i]);
         scanf("%s", databases[activeDatabaseIndex].tables[tableIndex].data[databases[activeDatabaseIndex].tables[tableIndex].numRows][i]);
     }
 
-    // Incrementa o número de linhas na tabela
+    // Incrementar o número de linhas na tabela
     databases[activeDatabaseIndex].tables[tableIndex].numRows++;
 
     printf("\n\n [Valores inseridos com sucesso na linha %d da tabela '%s']\n\n", databases[activeDatabaseIndex].tables[tableIndex].numRows, tableName);
@@ -300,6 +306,7 @@ void insertIntoTable(char* tableName)
 /* -------------------------- SELECT TABLE ---------------------------- */
 void selectTable(char* tableName)
 {
+    // Verificar se há uma base de dados ativa
     if (activeDatabaseIndex == -1) {
         printf("\n [Erro: Nenhuma base de dados ativa]\n");
         printf(" [DICA: Use 'USE db_name;' para ativar uma base de dados]\n\n");
@@ -308,7 +315,7 @@ void selectTable(char* tableName)
     }
 
     int tableIndex = -1;
-    // Procura pela tabela na base de dados ativa
+    // Procurar pela tabela na base de dados ativa
     for (int i = 0; i < databases[activeDatabaseIndex].numTables; ++i) {
         if (strcmp(databases[activeDatabaseIndex].tables[i].name, tableName) == 0) {
             tableIndex = i;
@@ -316,34 +323,34 @@ void selectTable(char* tableName)
         }
     }
 
-    // Verifica se a tabela foi encontrada
+    // Verificar se a tabela foi encontrada
     if (tableIndex == -1) {
         printf("\n [Erro: A tabela '%s' não foi encontrada na base de dados '%s']\n", tableName, databases[activeDatabaseIndex].name);
         printf("\n [ENTER] para tentar de novo\n");
         return;
     }
 
-    // Exibe o cabeçalho da tabela
+    // Exibir o cabeçalho da tabela
     printf("\n Tabela: %s\n\n", databases[activeDatabaseIndex].tables[tableIndex].name);
     for (int i = 0; i < databases[activeDatabaseIndex].tables[tableIndex].numColumns + 1; ++i) {
         printf("+---------------------");
     }
     printf("+\n");
 
-    // Exibe os nomes das colunas
+    // Exibir os nomes das colunas
     printf("| %-19s |", "numRow");
     for (int i = 0; i < databases[activeDatabaseIndex].tables[tableIndex].numColumns; ++i) {
         printf(" %-19s |", databases[activeDatabaseIndex].tables[tableIndex].columns[i]);
     }
     printf("\n");
 
-    // Exibe a linha horizontal separadora
+    // Exibir a linha horizontal separadora
     for (int i = 0; i < databases[activeDatabaseIndex].tables[tableIndex].numColumns + 1; ++i) {
         printf("+---------------------");
     }
     printf("+\n");
 
-    // Exibe os dados da tabela
+    // Exibir os dados da tabela
     for (int row = 0; row < databases[activeDatabaseIndex].tables[tableIndex].numRows; ++row) {
         printf("| %-19d |", row + 1);
         for (int col = 0; col < databases[activeDatabaseIndex].tables[tableIndex].numColumns; ++col) {
@@ -352,7 +359,7 @@ void selectTable(char* tableName)
         printf("\n");
     }
 
-    // Linha final
+    // Exibir a linha final da tabela
     for (int i = 0; i < databases[activeDatabaseIndex].tables[tableIndex].numColumns + 1; ++i) {
         printf("+---------------------");
     }
@@ -363,6 +370,7 @@ void selectTable(char* tableName)
 /* --------------------------- DELETE ROW ----------------------------- */
 void deleteRowFromTable(char* tableName, int rowNum)
 {
+    // Verificar se há uma base de dados ativa
     if (activeDatabaseIndex == -1) {
         printf("\n [Erro: Nenhuma base de dados ativa]\n");
         printf(" [DICA: Use 'USE db_name;' para ativar uma base de dados]\n\n");
@@ -424,6 +432,7 @@ void deleteRowFromTable(char* tableName, int rowNum)
 /* --------------------------- DELETE COL ----------------------------- */
 void deleteColFromTable(char* tableName, char* columnName)
 {
+    // Verificar se há uma base de dados ativa
     if (activeDatabaseIndex == -1) {
         printf("\n [Erro: Nenhuma base de dados ativa]\n");
         printf(" [DICA: Use 'USE db_name;' para ativar uma base de dados]\n\n");
@@ -432,7 +441,7 @@ void deleteColFromTable(char* tableName, char* columnName)
     }
 
     int tableIndex = -1;
-    // Procura pela tabela na base de dados ativa
+    // Procurar pela tabela na base de dados ativa
     for (int i = 0; i < databases[activeDatabaseIndex].numTables; ++i) {
         if (strcmp(databases[activeDatabaseIndex].tables[i].name, tableName) == 0) {
             tableIndex = i;
@@ -440,14 +449,14 @@ void deleteColFromTable(char* tableName, char* columnName)
         }
     }
 
-    // Verifica se a tabela foi encontrada
+    // Verificar se a tabela foi encontrada
     if (tableIndex == -1) {
         printf("\n [Erro: A tabela '%s' não foi encontrada na base de dados '%s']\n", tableName, databases[activeDatabaseIndex].name);
         printf("\n [ENTER] para tentar de novo\n");
         return;
     }
 
-    // Verifica se a coluna fornecida existe na tabela
+    // Verificar se a coluna fornecida existe na tabela
     int columnIndex = -1;
     for (int i = 0; i < databases[activeDatabaseIndex].tables[tableIndex].numColumns; ++i) {
         if (strcmp(databases[activeDatabaseIndex].tables[tableIndex].columns[i], columnName) == 0) {
@@ -456,30 +465,30 @@ void deleteColFromTable(char* tableName, char* columnName)
         }
     }
 
-    // Verifica se a coluna foi encontrada
+    // Verificar se a coluna foi encontrada
     if (columnIndex == -1) {
         printf("\n [Erro: A coluna '%s' não foi encontrada na tabela '%s']\n", columnName, tableName);
         printf("\n [ENTER] para tentar de novo\n");
         return;
     }
 
-    // Confirmação da exclusão da coluna
+    // Confirmar com o utilizador a exclusão da coluna
     char response;
     printf("\n Tem a certeza de que deseja eliminar a coluna '%s' da tabela '%s'? (S/N): ", columnName, tableName);
     scanf(" %c", &response);
 
     if (response == 'S' || response == 's') {
-        // Remove a coluna da tabela
+        // Remover a coluna da tabela
         for (int i = 0; i < databases[activeDatabaseIndex].tables[tableIndex].numRows; ++i) {
             for (int j = columnIndex; j < databases[activeDatabaseIndex].tables[tableIndex].numColumns - 1; ++j) {
                 strcpy(databases[activeDatabaseIndex].tables[tableIndex].data[i][j], databases[activeDatabaseIndex].tables[tableIndex].data[i][j + 1]);
             }
         }
 
-        // Decrementa o número de colunas na tabela
+        // Decrementar o número de colunas na tabela
         databases[activeDatabaseIndex].tables[tableIndex].numColumns--;
 
-        // Remove o nome da coluna do array de colunas
+        // Remover o nome da coluna do array de colunas
         for (int i = columnIndex; i < databases[activeDatabaseIndex].tables[tableIndex].numColumns; ++i) {
             strcpy(databases[activeDatabaseIndex].tables[tableIndex].columns[i], databases[activeDatabaseIndex].tables[tableIndex].columns[i + 1]);
         }
@@ -492,6 +501,7 @@ void deleteColFromTable(char* tableName, char* columnName)
 /* --------------------------- UPDATE ROW ----------------------------- */
 void updateRow(char* tableName, int rowNum)
 {
+    // Verificar se há uma base de dados ativa
     if (activeDatabaseIndex == -1) {
         printf("\n [Erro: Nenhuma base de dados ativa]\n");
         printf(" [DICA: Use 'USE db_name;' para ativar uma base de dados]\n\n");
@@ -500,7 +510,7 @@ void updateRow(char* tableName, int rowNum)
     }
 
     int tableIndex = -1;
-    // Procura pela tabela na base de dados ativa
+    // Procurar pela tabela na base de dados ativa
     for (int i = 0; i < databases[activeDatabaseIndex].numTables; ++i) {
         if (strcmp(databases[activeDatabaseIndex].tables[i].name, tableName) == 0) {
             tableIndex = i;
@@ -508,14 +518,14 @@ void updateRow(char* tableName, int rowNum)
         }
     }
 
-    // Verifica se a tabela foi encontrada
+    // Verificar se a tabela foi encontrada
     if (tableIndex == -1) {
         printf("\n [Erro: A tabela '%s' não foi encontrada na base de dados '%s']\n", tableName, databases[activeDatabaseIndex].name);
         printf("\n [ENTER] para tentar de novo\n");
         return;
     }
 
-    // Verifica se o número da linha fornecido é válido
+    // Verificar se o número da linha fornecido é válido
     if (rowNum <= 0 || rowNum > databases[activeDatabaseIndex].tables[tableIndex].numRows) {
         printf("\n [Erro: Número de linha inválido]\n");
         printf(" [DICA: 'SELECT tableName;' para visualizar a tabela]\n\n");
@@ -523,13 +533,13 @@ void updateRow(char* tableName, int rowNum)
         return;
     }
 
-    // Exibe os dados da linha que será atualizada
+    // Exibir os dados da linha que será atualizada
     printf("\n [Dados da linha %d da tabela '%s']:\n", rowNum, tableName);
     for (int col = 0; col < databases[activeDatabaseIndex].tables[tableIndex].numColumns; ++col) {
         printf("   %s: %s\n", databases[activeDatabaseIndex].tables[tableIndex].columns[col], databases[activeDatabaseIndex].tables[tableIndex].data[rowNum - 1][col]);
     }
 
-    // Solicita ao usuário para fornecer os novos valores
+    // Solicitar ao usuário para fornecer os novos valores
     printf("\n [Insira os novos valores para a linha %d da tabela '%s']:\n", rowNum, tableName);
     for (int col = 0; col < databases[activeDatabaseIndex].tables[tableIndex].numColumns; ++col) {
         printf("   %s: ", databases[activeDatabaseIndex].tables[tableIndex].columns[col]);
@@ -541,6 +551,7 @@ void updateRow(char* tableName, int rowNum)
 /* --------------------------- DROP TABLE ----------------------------- */
 void dropTable(char* tableName)
 {
+    // Verificar se há uma base de dados ativa
     if (activeDatabaseIndex == -1) {
         printf("\n [Erro: Nenhuma base de dados ativa]\n");
         printf(" [DICA: Use 'USE db_name;' para ativar uma base de dados]\n\n");
@@ -549,7 +560,7 @@ void dropTable(char* tableName)
     }
 
     int tableIndex = -1;
-    // Procura pela tabela na base de dados ativa
+    // Procurar pela tabela na base de dados ativa
     for (int i = 0; i < databases[activeDatabaseIndex].numTables; ++i) {
         if (strcmp(databases[activeDatabaseIndex].tables[i].name, tableName) == 0) {
             tableIndex = i;
@@ -557,25 +568,25 @@ void dropTable(char* tableName)
         }
     }
 
-    // Verifica se a tabela foi encontrada
+    // Verificar se a tabela foi encontrada
     if (tableIndex == -1) {
         printf("\n [Erro: A tabela '%s' não foi encontrada na base de dados '%s']\n", tableName, databases[activeDatabaseIndex].name);
         printf("\n [ENTER] para tentar de novo\n");
         return;
     }
 
-    // Confirmação da exclusão da tabela
+    // Confirmar com o utilizador a exclusão da tabela
     char response;
     printf("\n Tem a certeza de que deseja eliminar a tabela '%s'? (S/N): ", tableName);
     scanf(" %c", &response);
 
     if (response == 'S' || response == 's') {
-        // Remove a tabela da base de dados
+        // Remover a tabela da base de dados
         for (int i = tableIndex; i < databases[activeDatabaseIndex].numTables - 1; ++i) {
             databases[activeDatabaseIndex].tables[i] = databases[activeDatabaseIndex].tables[i + 1];
         }
 
-        // Decrementa o número de tabelas na base de dados
+        // Decrementar o número de tabelas na base de dados
         databases[activeDatabaseIndex].numTables--;
 
         printf("\n [A tabela '%s' foi eliminada com sucesso!]\n\n", tableName);
