@@ -52,7 +52,7 @@ show: SHOW DATABASES SEMICOLON LINE                                           { 
 
 usedb: USE IDENTIFIER SEMICOLON LINE                                          { useDatabase($2); }
      | USE error LINE                                                         { printf("\n [Query 'USE' não se encontra bem construida]\n");
-                                                                                printf(" [DICA: USE DATABASE db_nome;])\n\n"); 
+                                                                                printf(" [DICA: USE db_nome;])\n\n"); 
                                                                                 printf(" [ENTER] para tentar de novo \n"); }
      ;
 
