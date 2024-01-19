@@ -17,5 +17,13 @@ void deleteRowFromTable(char* tableName, int rowNum);
 void deleteColFromTable(char* tableName, char* columnName);
 void updateRow(char* tableName, int rowNum);
 void dropTable(char* tableName);
+void selectIgualNum(char* tableName, char* columnName, int number);
+void selectIgualStr(char* tableName, char* columnName, char* searchString);
+void selectMaiorIgualNum(char* tableName, char* columnName, int number);
+void selectMenorIgualNum(char* tableName, char* columnName, int number);
+void selectMaiorNum(char* tableName, char* columnName, int number);
+void selectMenorNum(char* tableName, char* columnName, int number);
+void selectDiffNum(char* tableName, char* columnName, int number);
+void selectDiffStr(char* tableName, char* columnName, char* searchString);
 
 #endif // FUNCOES_H

@@ -14,8 +14,9 @@ extern char *yyget_text(void);
 %start query
 
 %token EXTCMD LINE
-%token CREATE SHOW DROP DATABASE DATABASES USE TABLE TABLES WHICH INSERT VALUES SELECT DELETE FROM ROW COL UPDATE
-%token SEMICOLON COMMA OPENPAR CLOSEPAR
+%token CREATE SHOW DROP DATABASE DATABASES USE TABLE TABLES WHICH INSERT VALUES SELECT DELETE FROM ROW COL UPDATE WHERE
+%token MAIGUAL MEIGUAL IGUAL MAIOR MENOR DIFF
+%token SEMICOLON COMMA OPENPAR CLOSEPAR APTS
 
 %token <id> IDENTIFIER
 %token <num> NUMBER
@@ -90,11 +91,19 @@ insertvals: INSERT IDENTIFIER VALUES SEMICOLON LINE                           { 
                                                                                 printf(" [ENTER] para tentar de novo \n");}
           ;
 
-selecttb: SELECT IDENTIFIER SEMICOLON LINE                                    { selectTable($2); }
-        | SELECT error LINE                                                   { printf("\n [Query 'SELECT' não se encontra bem construida]\n");
-                                                                                printf(" [DICA: SELECT tableName;]\n\n");
-                                                                                printf(" [ENTER] para tentar de novo \n");}
-        ;
+selecttb: SELECT IDENTIFIER SEMICOLON LINE                                                { selectTable($2); }
+        | SELECT IDENTIFIER WHERE IDENTIFIER IGUAL NUMBER SEMICOLON LINE                  { selectIgualNum($2,$4,$6); }
+        | SELECT IDENTIFIER WHERE IDENTIFIER IGUAL APTS IDENTIFIER APTS SEMICOLON LINE    { selectIgualStr($2,$4,$7); }
+        | SELECT IDENTIFIER WHERE IDENTIFIER MAIGUAL NUMBER SEMICOLON LINE                { selectMaiorIgualNum($2,$4,$6); }
+        | SELECT IDENTIFIER WHERE IDENTIFIER MEIGUAL NUMBER SEMICOLON LINE                { selectMenorIgualNum($2,$4,$6); }
+        | SELECT IDENTIFIER WHERE IDENTIFIER MAIOR NUMBER SEMICOLON LINE                  { selectMaiorNum($2,$4,$6); }
+        | SELECT IDENTIFIER WHERE IDENTIFIER MENOR NUMBER SEMICOLON LINE                  { selectMenorNum($2,$4,$6); }
+        | SELECT IDENTIFIER WHERE IDENTIFIER DIFF NUMBER SEMICOLON LINE                   { selectDiffNum($2,$4,$6); }
+        | SELECT IDENTIFIER WHERE IDENTIFIER DIFF APTS IDENTIFIER APTS SEMICOLON LINE     { selectDiffStr($2,$4,$7); }
+        | SELECT error LINE                                                               { printf("\n [Query 'SELECT' não se encontra bem construida]\n");
+                                                                                            printf(" [DICA: SELECT tableName;]\n\n");
+                                                                                            printf(" [ENTER] para tentar de novo \n");}
+        ; 
 
 delete: DELETE ROW NUMBER FROM IDENTIFIER SEMICOLON LINE                      { deleteRowFromTable($5,$3); }
       | DELETE COL IDENTIFIER FROM IDENTIFIER SEMICOLON LINE                  { deleteColFromTable($5,$3); }

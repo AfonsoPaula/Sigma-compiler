@@ -27,14 +27,24 @@
 "ROW"                   { return ROW;        }
 "COL"                   { return COL;        }
 "UPDATE"                { return UPDATE;     }
+"WHERE"                 { return WHERE;      }
+
+">="                    { return MAIGUAL;    }
+">"                     { return MAIOR;      }
+"<"                     { return MENOR;      }
+"<="                    { return MEIGUAL;    }
+"="                     { return IGUAL;      }
+"!="                    { return DIFF;      }
 
 ";"                     { return SEMICOLON;  }
 ","                     { return COMMA;      }
 "("                     { return OPENPAR;    }
 ")"                     { return CLOSEPAR;   }
+"\'"                    { return APTS;       }
 
 [a-zA-Z][a-zA-Z0-9_]*   { yylval.id = strdup(yytext);     return IDENTIFIER; }
 [0-9]+                  { yylval.num = atoi(yytext);      return NUMBER;     }
+
 
 [ \t]                   ;
 [\n]                    { return LINE; }
