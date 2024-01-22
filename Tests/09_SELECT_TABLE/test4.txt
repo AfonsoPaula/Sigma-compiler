@@ -1,0 +1,14 @@
+Não respeita a sintaxe da query "SELECT" ✅
+
+input:
+
+ > SELECT erro sintaxe
+
+output:
+
+ [Erro na análise - 'sintaxe']
+
+ [Query 'SELECT' não se encontra bem construida]
+ [DICA: SELECT tableName;]
+
+ [ENTER] para tentar de novo

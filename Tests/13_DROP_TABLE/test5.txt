@@ -1,0 +1,14 @@
+Não respeita a sintaxe da query "DROP TABLE" ✅
+
+input:
+
+ > DROP TABLE erro de sintaxe
+
+output:
+
+ [Erro na análise - 'de']
+
+ [Query 'DROP' não se encontra bem construida]
+ [DICA: 'DROP DATABASE db_name;' ou 'DROP TABLE tableName'])
+
+ [ENTER] para tentar de novo

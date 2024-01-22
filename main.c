@@ -1327,6 +1327,9 @@ void selectDiffStr(char* tableName, char* columnName, char* searchString) {
 
 }
 
+
+
+
 int main() {
     printf("_________________________________________________________________________________________________\n\n");
     printf(":::::::::::::::::::::::::::::::::: Bem-vindo ao Sigma Compiler ::::::::::::::::::::::::::::::::::\n\n");

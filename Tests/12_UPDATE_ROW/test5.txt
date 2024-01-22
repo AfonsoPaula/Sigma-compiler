@@ -1,0 +1,14 @@
+Não respeita a sintaxe da query "UPDATE ROW" ✅
+
+input:
+
+ > UPDATE ROW erro de sintaxe;
+
+output:
+
+ [Erro na análise - 'erro']
+
+ [Query UPDATE ROW incompleta]
+ [DICA: UPDATE ROW numRow FROM tableName;]
+
+ [ENTER] para tentar de novo

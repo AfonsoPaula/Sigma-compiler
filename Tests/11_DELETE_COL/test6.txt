@@ -1,0 +1,14 @@
+Não respeita a sintaxe da query "DELETE COL" ✅
+
+input:
+
+ > DELETE COL sintaxe;
+
+output:
+
+ [Erro na análise - ';']
+
+ [Query 'DELETE COL' não se encontra bem construida]
+ [DICA: DELETE COL colName FROM tableName;]
+
+ [ENTER] para tentar de novo

@@ -1,0 +1,12 @@
+Não respeita a sintaxe da query "CREATE DATABASE" ✅
+
+input:
+
+ > CREATE erro de sintaxe
+
+output:
+
+ [Query 'CREATE DATABASE' não se encontra bem construida]
+ [DICA: CREATE DATABASE db_nome;])
+
+ [ENTER] para tentar de novo

@@ -1,0 +1,14 @@
+Não respeita a sintaxe da query "WHICH" ✅
+
+input:
+
+ > WHICH sintaxe;
+
+output:
+
+ [Erro na análise - 'sintaxe']
+
+ [Query 'WHICH' não se encontra bem construida]
+ [DICA: WHICH DATABASE;]
+
+ [ENTER] para tentar de novo

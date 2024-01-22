@@ -14,7 +14,7 @@ extern char *yyget_text(void);
 %start query
 
 %token EXTCMD LINE
-%token CREATE SHOW DROP DATABASE DATABASES USE TABLE TABLES WHICH INSERT VALUES SELECT DELETE FROM ROW COL UPDATE WHERE
+%token CREATE SHOW DROP DATABASE DATABASES USE TABLE TABLES WHICH INSERT VALUES SELECT DELETE FROM ROW COL UPDATE WHERE FOR
 %token MAIGUAL MEIGUAL IGUAL MAIOR MENOR DIFF
 %token SEMICOLON COMMA OPENPAR CLOSEPAR APTS
 
@@ -42,6 +42,7 @@ command: show
        | selecttb
        | delete
        | rowupdate
+       | forcicle
        ;
 
 show: SHOW DATABASES SEMICOLON LINE                                           { showDatabases(); }
@@ -124,6 +125,11 @@ rowupdate: UPDATE ROW NUMBER FROM IDENTIFIER SEMICOLON LINE                   { 
                                                                                 printf(" [ENTER] para tentar de novo \n");}
          ;
 
+forcicle: FOR OPENPAR IDENTIFIER COMMA IDENTIFIER COMMA NUMBER COMMA NUMBER CLOSEPAR SEMICOLON LINE   { printf("Reconheceu!\n"); }
+        | FOR error LINE                                                                              { printf("\n [Query FOR incompleta]\n");
+                                                                                                        printf(" [DICA: FOR (tableName, colName, startRow, numberLines]\n\n");
+                                                                                                        printf(" [ENTER] para tentar de novo \n");}
+        ;
 %%
 
 /* ------------------- YYERROR ANALISE ------------------- */

@@ -1,0 +1,14 @@
+Não respeita a sintaxe da query "CREATE TABLE" ✅
+
+input:
+
+ > CREATE TABLE sintaxe;
+
+output:
+
+ [Erro na análise - ';']
+
+ [Query 'CREATE TABLE' não se encontra bem construida]
+ [DICA: CREATE TABLE table_name (numColumns);]
+
+ [ENTER] para tentar de novo

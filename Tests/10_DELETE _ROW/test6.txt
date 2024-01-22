@@ -1,0 +1,14 @@
+Não respeita a sintaxe da query "DELETE ROW" ✅
+
+input:
+
+ > DELETE ROW sintaxe;
+
+output:
+
+ [Erro na análise - 'sintaxe']
+
+ [Query 'DELETE ROW' não se encontra bem construida]
+ [DICA: DELETE ROW numRow FROM tableName;]
+
+ [ENTER] para tentar de novo

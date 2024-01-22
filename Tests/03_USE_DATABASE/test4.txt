@@ -1,0 +1,12 @@
+Não respeita a sintaxe da query "USE" ✅
+
+input:
+
+ > USE sintaxe
+
+output:
+
+ [Query 'USE' não se encontra bem construida]
+ [DICA: USE db_nome;])
+
+ [ENTER] para tentar de novo

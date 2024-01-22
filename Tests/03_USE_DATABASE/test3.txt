@@ -6,7 +6,7 @@ input:
 
  > USE db_name;
 
-  > USE db_name;
+ > USE db_name;
 
 output:
 

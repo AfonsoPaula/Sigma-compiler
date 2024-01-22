@@ -1,4 +1,4 @@
-2. Eliminar uma tabela que não existe numa dada BD ✅
+5. Eliminar uma coluna de uma tabela que não existe ✅
 
 input:
 
@@ -6,9 +6,9 @@ input:
 
  > USE db_name;
 
- > CREATE TABLE tableName1 (3);
+ > CREATE TABLE tableName (3);
 
- > DROP TABLE tableName2;
+ > DELETE COL country FROM tableName2;
 
 output:
 

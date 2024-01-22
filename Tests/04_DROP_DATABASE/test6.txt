@@ -1,0 +1,12 @@
+Não respeita a sintaxe da query "DROP DATABASE" ✅
+
+input:
+
+ > DROP DATABASE sintaxe
+
+output:
+
+ [Query 'DROP' não se encontra bem construida]
+ [DICA: 'DROP DATABASE db_name;' ou 'DROP TABLE tableName'])
+
+ [ENTER] para tentar de novo

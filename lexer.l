@@ -28,6 +28,7 @@
 "COL"                   { return COL;        }
 "UPDATE"                { return UPDATE;     }
 "WHERE"                 { return WHERE;      }
+"FOR"                   { return FOR;        }
 
 ">="                    { return MAIGUAL;    }
 ">"                     { return MAIOR;      }

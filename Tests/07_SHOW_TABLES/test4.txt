@@ -1,0 +1,14 @@
+Não respeita a sintaxe da query "SHOW TABLES" ✅
+
+input:
+
+ > SHOW TABLES sintaxe;
+
+output:
+
+ [Erro na análise - 'sintaxe']
+
+ [Query 'SHOW' não se encontra bem construida]
+ [DICA: 'SHOW DATABASES;' ou 'SHOW TABLES;']
+
+ [ENTER] para tentar de novo

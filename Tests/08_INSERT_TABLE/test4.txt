@@ -1,0 +1,14 @@
+Não respeita a sintaxe da query "INSERT INTO" ✅
+
+input:
+
+ > INSERT INTO sintaxe;
+
+output:
+
+ [Erro na análise - ';']
+
+ [Query 'INSERT INTO' não se encontra bem construida]
+ [DICA: INSERT INTO tableName VALUES;]
+
+ [ENTER] para tentar de novo
