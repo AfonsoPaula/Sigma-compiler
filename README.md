@@ -1,12 +1,12 @@
 <p align="center">
-  <h1 align="center">Sigma Query Language - Compiler 🐉</h1>
+  <h1 align="center">Sigma Query Language - Interpreter 🐉</h1>
 </p>
 
 ## ➡️Contextualização
 
 Este projeto encaixa-se no contexto académico da disciplina Linguagens de Programação e Compiladores (Mestrado em Engenharia Informática), onde o desafio lançado passa por desenvolver um compilador/interpretador com uma identidade única, indo além do convencional, de maneira a aplicar os conhecimentos adquiridos ao longo semestre.
 
-A Sigma Query Language Compiler é um programa desenvolvido para interpretar comandos de uma linguagem semelhante à SQL, permitindo a manipulação de bases de dados e tabelas. Os objetivos primários deste projeto incluíram o desenvolvimento de um compilador capaz de interpretar comandos "sigma" fornecidos pelo utilizador, de modo a obter, como produto final, um simulador de um sistema de gestão de bases de dados em C. A implementação foi guiada pelo uso do Lexer, atuando como analisador léxico, e do Parser, funcionando como analisador semântico, com operações fundamentais implementadas em C.
+A Sigma Query Language Interpreter é um programa desenvolvido para interpretar comandos de uma linguagem semelhante à SQL, permitindo a manipulação de bases de dados e tabelas. Os objetivos primários deste projeto incluíram o desenvolvimento de um compilador capaz de interpretar comandos "sigma" fornecidos pelo utilizador, de modo a obter, como produto final, um simulador de um sistema de gestão de bases de dados em C. A implementação foi guiada pelo uso do Lexer, atuando como analisador léxico, e do Parser, funcionando como analisador semântico, com operações fundamentais implementadas em C.
 
 <hr>
 
