@@ -146,6 +146,22 @@ INSERT INTO tableName VALUES;
 
 SELECT tableName;
 
+SELECT tableName WHERE columnName = x;
+
+SELECT tableName WHERE columnName = 'x';
+
+SELECT tableName WHERE columnName != x;
+
+SELECT tableName WHERE columnName != 'x';
+
+SELECT tableName WHERE columnName > x;
+
+SELECT tableName WHERE columnName >= x;
+
+SELECT tableName WHERE columnName < x;
+
+SELECT tableName WHERE columnName <= x;
+
 DELETE ROW numRow FROM tableName;
 
 DELETE COL colName FROM tableName;
