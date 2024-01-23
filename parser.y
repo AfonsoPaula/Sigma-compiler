@@ -59,7 +59,7 @@ usedb: USE IDENTIFIER SEMICOLON LINE                                          { 
      ;
 
 whichdb: WHICH DATABASE SEMICOLON LINE                                        { whichDatabase(); }
-       | WHICH error                                                          { printf("\n [Query 'WHICH' não se encontra bem construida]\n");
+       | WHICH error LINE                                                     { printf("\n [Query 'WHICH' não se encontra bem construida]\n");
                                                                                 printf(" [DICA: WHICH DATABASE;]\n\n");
                                                                                 printf(" [ENTER] para tentar de novo \n"); }
        ;
@@ -92,15 +92,15 @@ insertvals: INSERT IDENTIFIER VALUES SEMICOLON LINE                           { 
                                                                                 printf(" [ENTER] para tentar de novo \n");}
           ;
 
-selecttb: SELECT IDENTIFIER SEMICOLON LINE                                                { selectTable($2); }
-        | SELECT IDENTIFIER WHERE IDENTIFIER IGUAL NUMBER SEMICOLON LINE                  { selectIgualNum($2,$4,$6); }
-        | SELECT IDENTIFIER WHERE IDENTIFIER IGUAL APTS IDENTIFIER APTS SEMICOLON LINE    { selectIgualStr($2,$4,$7); }
+selecttb: SELECT IDENTIFIER SEMICOLON LINE                                                { selectTable($2);               }
+        | SELECT IDENTIFIER WHERE IDENTIFIER IGUAL NUMBER SEMICOLON LINE                  { selectIgualNum($2,$4,$6);      }
+        | SELECT IDENTIFIER WHERE IDENTIFIER IGUAL APTS IDENTIFIER APTS SEMICOLON LINE    { selectIgualStr($2,$4,$7);      }
         | SELECT IDENTIFIER WHERE IDENTIFIER MAIGUAL NUMBER SEMICOLON LINE                { selectMaiorIgualNum($2,$4,$6); }
         | SELECT IDENTIFIER WHERE IDENTIFIER MEIGUAL NUMBER SEMICOLON LINE                { selectMenorIgualNum($2,$4,$6); }
-        | SELECT IDENTIFIER WHERE IDENTIFIER MAIOR NUMBER SEMICOLON LINE                  { selectMaiorNum($2,$4,$6); }
-        | SELECT IDENTIFIER WHERE IDENTIFIER MENOR NUMBER SEMICOLON LINE                  { selectMenorNum($2,$4,$6); }
-        | SELECT IDENTIFIER WHERE IDENTIFIER DIFF NUMBER SEMICOLON LINE                   { selectDiffNum($2,$4,$6); }
-        | SELECT IDENTIFIER WHERE IDENTIFIER DIFF APTS IDENTIFIER APTS SEMICOLON LINE     { selectDiffStr($2,$4,$7); }
+        | SELECT IDENTIFIER WHERE IDENTIFIER MAIOR NUMBER SEMICOLON LINE                  { selectMaiorNum($2,$4,$6);      }
+        | SELECT IDENTIFIER WHERE IDENTIFIER MENOR NUMBER SEMICOLON LINE                  { selectMenorNum($2,$4,$6);      }
+        | SELECT IDENTIFIER WHERE IDENTIFIER DIFF NUMBER SEMICOLON LINE                   { selectDiffNum($2,$4,$6);       }
+        | SELECT IDENTIFIER WHERE IDENTIFIER DIFF APTS IDENTIFIER APTS SEMICOLON LINE     { selectDiffStr($2,$4,$7);       }
         | SELECT error LINE                                                               { printf("\n [Query 'SELECT' não se encontra bem construida]\n");
                                                                                             printf(" [DICA: SELECT tableName;]\n\n");
                                                                                             printf(" [ENTER] para tentar de novo \n");}

@@ -26,4 +26,12 @@ void selectMenorNum(char* tableName, char* columnName, int number);
 void selectDiffNum(char* tableName, char* columnName, int number);
 void selectDiffStr(char* tableName, char* columnName, char* searchString);
 
+// Aux Functions
+int checkActiveDatabase();
+int isDatabaseActive();
+int findTableIndex(const char* tableName);
+int findColumnIndex(int tableIndex, const char* columnName);
+void printTableHeader(int tableIndex);
+void printTableFooter(int tableIndex);
+
 #endif // FUNCOES_H
