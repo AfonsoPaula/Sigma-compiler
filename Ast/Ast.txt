@@ -140,7 +140,79 @@ query
     |    │         │    └── tableName         
     |    │         │         
     |    │         └── selectTable($2)
-    |    │   
+    |    │
+    |    |
+    |    ├── SELECT IDENTIFIER WHERE IDENTIFIER = NUMBER ; LINE
+    |    |         |      |
+    |    |         |      |
+    |    |         |      └── tableName
+    |    |         |      
+    |    |         └── selectIgualNum($2,$4,$6);
+    |    │
+    |    |
+    |    ├── SELECT IDENTIFIER WHERE IDENTIFIER = 'IDENTIFIER' ; LINE
+    |    |         |      |
+    |    |         |      |
+    |    |         |      └── tableName
+    |    |         |      
+    |    |         └── selectIgualStr($2,$4,$7);
+    |    |
+    |    |
+    |    |
+    |    ├── SELECT IDENTIFIER WHERE IDENTIFIER >= NUMBER ; LINE
+    |    |         |      |
+    |    |         |      |
+    |    |         |      └── tableName
+    |    |         |      
+    |    |         └── selectMaiorIgualNum($2,$4,$6);
+    |    |
+    |    |
+    |    |
+    |    ├── SELECT IDENTIFIER WHERE IDENTIFIER <= NUMBER ; LINE
+    |    |         |      |
+    |    |         |      |
+    |    |         |      └── tableName
+    |    |         |      
+    |    |         └── selectMenorIgualNum($2,$4,$6);
+    |    |
+    |    |
+    |    |
+    |    ├── SELECT IDENTIFIER WHERE IDENTIFIER > NUMBER ; LINE
+    |    |         |      |
+    |    |         |      |
+    |    |         |      └── tableName
+    |    |         |      
+    |    |         └── selectMaiorNum($2,$4,$6);
+    |    |
+    |    |
+    |    |
+    |    ├── SELECT IDENTIFIER WHERE IDENTIFIER < NUMBER ; LINE
+    |    |         |      |
+    |    |         |      |
+    |    |         |      └── tableName
+    |    |         |      
+    |    |         └── selectMenorNum($2,$4,$6);
+    |    |
+    |    |
+    |    |
+    |    ├── SELECT IDENTIFIER WHERE IDENTIFIER  NUMBER ; LINE
+    |    |         |      |
+    |    |         |      |
+    |    |         |      └── tableName
+    |    |         |      
+    |    |         └── selectDiffNum($2,$4,$6);
+    |    |
+    |    |
+    |    |
+    |    ├── SELECT IDENTIFIER WHERE IDENTIFIER != 'IDENTIFIER' ; LINE
+    |    |         |      |
+    |    |         |      |
+    |    |         |      └── tableName
+    |    |         |      
+    |    |         └── selectDiffStr($2,$4,$7);
+    |    |
+    |    |
+    |    |
     |    └── SELECT error LINE
     |              │
     |              ├── printf("\n [Query 'SELECT' não se encontra bem construída]\n")
